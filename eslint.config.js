@@ -1,7 +1,7 @@
 // @ts-check
 
 // Import the tanstack config
-// @ts-ignore
+// @ts-ignore since this is configuration file, it may not have types
 import { tanstackConfig } from '@tanstack/eslint-config'
 
 /** @type {import('eslint').Linter.FlatConfig} */
