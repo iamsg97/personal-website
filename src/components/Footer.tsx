@@ -4,20 +4,18 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="p-6 bg-muted/50 text-foreground border-t">
+    <footer className="bg-muted/50 text-foreground border-t p-6">
       <div className="container mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center">
+        <div className="flex flex-col items-center justify-between md:flex-row">
           <div className="mb-4 md:mb-0">
-            <p className="text-sm">
-              © {currentYear} My Personal Website. All rights reserved.
-            </p>
+            <p className="text-sm">© {currentYear} My Personal Website. All rights reserved.</p>
           </div>
           <div className="flex space-x-4">
             <a
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-primary transition-colors"
+              className="hover:text-accent transition-colors"
             >
               GitHub
             </a>
@@ -25,7 +23,7 @@ export default function Footer() {
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-primary transition-colors"
+              className="hover:text-accent transition-colors"
             >
               LinkedIn
             </a>
@@ -33,7 +31,7 @@ export default function Footer() {
               href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-primary transition-colors"
+              className="hover:text-accent transition-colors"
             >
               Twitter
             </a>

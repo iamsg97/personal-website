@@ -1,11 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from './ui/card'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card'
 import { Button } from './ui/button'
 
 export default function Projects() {
@@ -48,18 +41,16 @@ export default function Projects() {
   return (
     <section id="projects" className="py-16">
       <div className="container">
-        <h2 className="text-3xl font-bold text-center mb-12">
-          Featured Projects
-        </h2>
+        <h2 className="mb-12 text-center text-3xl font-bold">Featured Projects</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project) => (
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {projects.map(project => (
             <Card key={project.id} className="flex flex-col overflow-hidden">
               <div className="aspect-video overflow-hidden">
                 <img
                   src={project.imageUrl}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform hover:scale-105 duration-300"
+                  className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
                 />
               </div>
               <CardHeader>
@@ -68,11 +59,11 @@ export default function Projects() {
               </CardHeader>
               <CardContent>
                 <p className="mb-4">{project.details}</p>
-                <div className="flex flex-wrap gap-2 mt-3">
-                  {project.tags.map((tag) => (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {project.tags.map(tag => (
                     <span
                       key={tag}
-                      className="px-2 py-1 bg-muted/60 rounded-md text-xs font-medium"
+                      className="bg-muted/60 rounded-md px-2 py-1 text-xs font-medium"
                     >
                       {tag}
                     </span>
@@ -82,20 +73,12 @@ export default function Projects() {
               <CardFooter className="mt-auto pt-4">
                 <div className="flex gap-3">
                   <Button variant="outline" size="sm" asChild>
-                    <a
-                      href={project.demoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
                       Live Demo
                     </a>
                   </Button>
                   <Button variant="outline" size="sm" asChild>
-                    <a
-                      href={project.repoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">
                       View Code
                     </a>
                   </Button>

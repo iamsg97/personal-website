@@ -3,25 +3,25 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-16 bg-muted/30">
+    <section id="contact" className="bg-muted/30 py-16">
       <div className="container">
-        <h2 className="text-3xl font-bold text-center mb-12">Get In Touch</h2>
+        <h2 className="mb-12 text-center text-3xl font-bold">Get In Touch</h2>
 
-        <div className="max-w-2xl mx-auto">
+        <div className="mx-auto max-w-2xl">
           <Card>
             <CardHeader>
               <CardTitle className="text-xl">Send Me a Message</CardTitle>
             </CardHeader>
             <CardContent>
               <form className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
                     <label htmlFor="name" className="text-sm font-medium">
                       Name
                     </label>
                     <input
                       id="name"
-                      className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30"
+                      className="focus:ring-accent/30 w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
                       placeholder="Your name"
                       type="text"
                       required
@@ -33,7 +33,7 @@ export default function Contact() {
                     </label>
                     <input
                       id="email"
-                      className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30"
+                      className="focus:ring-accent/30 w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
                       placeholder="Your email"
                       type="email"
                       required
@@ -46,7 +46,7 @@ export default function Contact() {
                   </label>
                   <input
                     id="subject"
-                    className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30"
+                    className="focus:ring-accent/30 w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
                     placeholder="Message subject"
                     type="text"
                     required
@@ -58,7 +58,7 @@ export default function Contact() {
                   </label>
                   <textarea
                     id="message"
-                    className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30 min-h-[150px]"
+                    className="focus:ring-accent/30 min-h-[150px] w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
                     placeholder="Your message"
                     required
                   ></textarea>
@@ -70,16 +70,16 @@ export default function Contact() {
             </CardContent>
           </Card>
 
-          <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+          <div className="mt-10 grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
             <div className="p-4">
-              <div className="mb-3 inline-flex items-center justify-center p-3 bg-primary/10 rounded-full">
+              <div className="bg-accent/10 mb-3 inline-flex items-center justify-center rounded-full p-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6 text-primary"
+                  className="text-accent h-6 w-6"
                 >
                   <path
                     strokeLinecap="round"
@@ -90,24 +90,21 @@ export default function Contact() {
               </div>
               <h3 className="text-lg font-semibold">Email</h3>
               <p className="mt-1">
-                <a
-                  href="mailto:example@domain.com"
-                  className="hover:text-primary"
-                >
+                <a href="mailto:example@domain.com" className="hover:text-accent">
                   example@domain.com
                 </a>
               </p>
             </div>
 
             <div className="p-4">
-              <div className="mb-3 inline-flex items-center justify-center p-3 bg-primary/10 rounded-full">
+              <div className="bg-accent/10 mb-3 inline-flex items-center justify-center rounded-full p-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6 text-primary"
+                  className="text-accent h-6 w-6"
                 >
                   <path
                     strokeLinecap="round"
@@ -126,14 +123,14 @@ export default function Contact() {
             </div>
 
             <div className="p-4">
-              <div className="mb-3 inline-flex items-center justify-center p-3 bg-primary/10 rounded-full">
+              <div className="bg-accent/10 mb-3 inline-flex items-center justify-center rounded-full p-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6 text-primary"
+                  className="text-accent h-6 w-6"
                 >
                   <path
                     strokeLinecap="round"
@@ -144,7 +141,7 @@ export default function Contact() {
               </div>
               <h3 className="text-lg font-semibold">Phone</h3>
               <p className="mt-1">
-                <a href="tel:+11234567890" className="hover:text-primary">
+                <a href="tel:+11234567890" className="hover:text-accent">
                   (123) 456-7890
                 </a>
               </p>
