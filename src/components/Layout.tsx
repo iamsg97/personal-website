@@ -1,19 +1,22 @@
 import { Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-import Header from './Header'
+import { ThemeProvider } from '../contexts/ThemeContext'
 import Footer from './Footer'
+import Header from './Header'
 
 export default function Layout() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
+    <ThemeProvider defaultTheme="system" storageKey="portfolio-theme">
+      <div className="flex min-h-screen flex-col">
+        <Header />
 
-      <main className="flex-grow container mx-auto px-4 py-8">
-        <Outlet />
-      </main>
+        <main className="container mx-auto flex-grow px-4 py-8">
+          <Outlet />
+        </main>
 
-      <Footer />
-      <TanStackRouterDevtools />
-    </div>
+        <Footer />
+        <TanStackRouterDevtools />
+      </div>
+    </ThemeProvider>
   )
 }

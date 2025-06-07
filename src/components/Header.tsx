@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
 import { Link } from '@tanstack/react-router'
+import { useEffect, useState } from 'react'
+import { ThemeToggle } from './ThemeToggle'
 import { Button } from './ui/button'
 
 export default function Header() {
@@ -15,66 +16,71 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
   // Close mobile menu when clicking on a navigation link
   const handleNavClick = () => {
     setIsMenuOpen(false)
   }
 
+  // Handle scroll to section
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+    handleNavClick()
+  }
+
   return (
     <header
-      className={`border-b bg-background sticky top-0 z-40 ${scrolled ? 'shadow-sm' : ''} transition-shadow`}
+      className={`bg-background sticky top-0 z-40 border-b ${scrolled ? 'shadow-sm' : ''} transition-shadow`}
     >
       <div className="container flex h-16 items-center justify-between py-4">
         {/* Logo on the left */}
         <div>
-          <Link to="/" className="font-bold text-xl">
+          <Link to="/" className="text-xl font-bold">
             My Portfolio
           </Link>
         </div>
-
         {/* Navigation centered - desktop */}
-        <div className="flex-grow flex justify-center">
-          <nav className="hidden md:flex items-center gap-6 text-sm">
-            <Link
-              to="/"
-              className="font-medium transition-colors hover:text-primary"
-            >
+        <div className="flex flex-grow justify-center">
+          {' '}
+          <nav className="hidden items-center gap-6 text-sm md:flex">
+            <Link to="/" className="hover:text-accent font-medium transition-colors">
               Home
             </Link>
-            <a
-              href="#about"
-              className="font-medium transition-colors hover:text-primary"
-              onClick={handleNavClick}
+            <button
+              type="button"
+              onClick={() => scrollToSection('about')}
+              className="hover:text-accent font-medium transition-colors"
             >
               About
-            </a>
-            <a
-              href="#skills"
-              className="font-medium transition-colors hover:text-primary"
-              onClick={handleNavClick}
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollToSection('skills')}
+              className="hover:text-accent font-medium transition-colors"
             >
               Skills
-            </a>
-            <a
-              href="#projects"
-              className="font-medium transition-colors hover:text-primary"
-              onClick={handleNavClick}
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollToSection('projects')}
+              className="hover:text-accent font-medium transition-colors"
             >
               Projects
-            </a>
-            <a
-              href="#contact"
-              className="font-medium transition-colors hover:text-primary"
-              onClick={handleNavClick}
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollToSection('contact')}
+              className="hover:text-accent font-medium transition-colors"
             >
               Contact
-            </a>
+            </button>
           </nav>
-        </div>
-
-        {/* Auth buttons on the right */}
+        </div>{' '}
+        {/* Auth buttons and theme toggle on the right */}
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <div className="hidden md:block">
             <Button variant="outline" size="sm">
               Sign In
@@ -82,11 +88,11 @@ export default function Header() {
             <Button size="sm" className="ml-2">
               Sign Up
             </Button>
-          </div>
-
+          </div>{' '}
           {/* Mobile menu button */}
           <button
-            className="md:hidden p-2"
+            type="button"
+            className="p-2 md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -97,13 +103,9 @@ export default function Header() {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="h-6 w-6"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
               <svg
@@ -112,7 +114,7 @@ export default function Header() {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="h-6 w-6"
               >
                 <path
                   strokeLinecap="round"
@@ -127,50 +129,53 @@ export default function Header() {
 
       {/* Mobile navigation */}
       {isMenuOpen && (
-        <div className="md:hidden py-4 border-t bg-background">
+        <div className="bg-background border-t py-4 md:hidden">
           <nav className="container flex flex-col space-y-3">
             <Link
               to="/"
-              className="px-4 py-2 font-medium transition-colors hover:text-primary"
+              className="hover:text-accent px-4 py-2 font-medium transition-colors"
               onClick={handleNavClick}
             >
               Home
             </Link>
-            <a
-              href="#about"
-              className="px-4 py-2 font-medium transition-colors hover:text-primary"
-              onClick={handleNavClick}
+            <button
+              type="button"
+              onClick={() => scrollToSection('about')}
+              className="hover:text-accent px-4 py-2 text-left font-medium transition-colors"
             >
               About
-            </a>
-            <a
-              href="#skills"
-              className="px-4 py-2 font-medium transition-colors hover:text-primary"
-              onClick={handleNavClick}
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollToSection('skills')}
+              className="hover:text-accent px-4 py-2 text-left font-medium transition-colors"
             >
               Skills
-            </a>
-            <a
-              href="#projects"
-              className="px-4 py-2 font-medium transition-colors hover:text-primary"
-              onClick={handleNavClick}
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollToSection('projects')}
+              className="hover:text-accent px-4 py-2 text-left font-medium transition-colors"
             >
               Projects
-            </a>
-            <a
-              href="#contact"
-              className="px-4 py-2 font-medium transition-colors hover:text-primary"
-              onClick={handleNavClick}
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollToSection('contact')}
+              className="hover:text-accent px-4 py-2 text-left font-medium transition-colors"
             >
               Contact
-            </a>
-            <div className="flex gap-2 pt-4 px-4">
-              <Button variant="outline" size="sm" className="w-full">
-                Sign In
-              </Button>
-              <Button size="sm" className="w-full">
-                Sign Up
-              </Button>
+            </button>
+            <div className="flex items-center justify-between gap-2 px-4 pt-4">
+              <ThemeToggle />
+              <div className="flex flex-1 gap-2">
+                <Button variant="outline" size="sm" className="w-full">
+                  Sign In
+                </Button>
+                <Button size="sm" className="w-full">
+                  Sign Up
+                </Button>
+              </div>
             </div>
           </nav>
         </div>
