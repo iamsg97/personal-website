@@ -13,6 +13,8 @@ export default function About() {
                 src="/profile-photo.jpg"
                 alt="Professional headshot of Full Stack Developer"
                 className="ring-accent/20 aspect-square w-full max-w-sm rounded-full object-cover shadow-lg ring-4"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </div>
