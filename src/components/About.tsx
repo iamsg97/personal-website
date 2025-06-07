@@ -8,21 +8,12 @@ export default function About() {
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="lg:col-span-1">
-            <div className="bg-muted/30 flex aspect-square items-center justify-center rounded-lg">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="text-muted-foreground/60 h-1/2 w-1/2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-                />
-              </svg>
+            <div className="flex items-center justify-center">
+              <img
+                src="/profile-photo.jpg"
+                alt="Professional headshot of Full Stack Developer"
+                className="ring-accent/20 aspect-square w-full max-w-sm rounded-full object-cover shadow-lg ring-4"
+              />
             </div>
           </div>
 
