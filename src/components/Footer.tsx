@@ -8,11 +8,11 @@ export default function Footer() {
       <div className="container mx-auto">
         <div className="flex flex-col items-center justify-between md:flex-row">
           <div className="mb-4 md:mb-0">
-            <p className="text-sm">© {currentYear} My Personal Website. All rights reserved.</p>
+            <p className="text-sm">© {currentYear} Suvadeep Ghoshal. All rights reserved.</p>
           </div>
           <div className="flex space-x-4">
             <a
-              href="https://github.com"
+              href="https://github.com/iamsg97"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-accent transition-colors"
@@ -20,7 +20,7 @@ export default function Footer() {
               GitHub
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/suvadeepghoshal"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-accent transition-colors"
@@ -28,7 +28,7 @@ export default function Footer() {
               LinkedIn
             </a>
             <a
-              href="https://twitter.com"
+              href="https://x.com/ghoshalsuvadeep"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-accent transition-colors"
