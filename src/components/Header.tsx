@@ -1,5 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
+
+import { NAV_SECTIONS } from '../constants/links'
 import { ThemeToggle } from './ThemeToggle'
 import { Button } from './ui/button'
 
@@ -50,28 +52,28 @@ export default function Header() {
             </Link>
             <button
               type="button"
-              onClick={() => scrollToSection('about')}
+              onClick={() => scrollToSection(NAV_SECTIONS.about)}
               className="hover:text-accent font-medium transition-colors"
             >
               About
             </button>
             <button
               type="button"
-              onClick={() => scrollToSection('skills')}
+              onClick={() => scrollToSection(NAV_SECTIONS.skills)}
               className="hover:text-accent font-medium transition-colors"
             >
               Skills
             </button>
             <button
               type="button"
-              onClick={() => scrollToSection('projects')}
+              onClick={() => scrollToSection(NAV_SECTIONS.projects)}
               className="hover:text-accent font-medium transition-colors"
             >
               Projects
             </button>
             <button
               type="button"
-              onClick={() => scrollToSection('contact')}
+              onClick={() => scrollToSection(NAV_SECTIONS.contact)}
               className="hover:text-accent font-medium transition-colors"
             >
               Contact
@@ -140,28 +142,28 @@ export default function Header() {
             </Link>
             <button
               type="button"
-              onClick={() => scrollToSection('about')}
+              onClick={() => scrollToSection(NAV_SECTIONS.about)}
               className="hover:text-accent px-4 py-2 text-left font-medium transition-colors"
             >
               About
             </button>
             <button
               type="button"
-              onClick={() => scrollToSection('skills')}
+              onClick={() => scrollToSection(NAV_SECTIONS.skills)}
               className="hover:text-accent px-4 py-2 text-left font-medium transition-colors"
             >
               Skills
             </button>
             <button
               type="button"
-              onClick={() => scrollToSection('projects')}
+              onClick={() => scrollToSection(NAV_SECTIONS.projects)}
               className="hover:text-accent px-4 py-2 text-left font-medium transition-colors"
             >
               Projects
             </button>
             <button
               type="button"
-              onClick={() => scrollToSection('contact')}
+              onClick={() => scrollToSection(NAV_SECTIONS.contact)}
               className="hover:text-accent px-4 py-2 text-left font-medium transition-colors"
             >
               Contact
