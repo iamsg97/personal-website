@@ -1,3 +1,4 @@
+import { SOCIAL_LINKS } from '../constants/links'
 import { Button } from './ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 
@@ -61,7 +62,7 @@ export default function Contact() {
                     className="focus:ring-accent/30 min-h-[150px] w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
                     placeholder="Your message"
                     required
-                  ></textarea>
+                  />
                 </div>
                 <Button type="submit" className="w-full sm:w-auto">
                   Send Message
@@ -90,7 +91,7 @@ export default function Contact() {
               </div>
               <h3 className="text-lg font-semibold">Email</h3>
               <p className="mt-1">
-                <a href="mailto:example@domain.com" className="hover:text-accent">
+                <a href={SOCIAL_LINKS.email} className="hover:text-accent">
                   example@domain.com
                 </a>
               </p>
@@ -141,7 +142,7 @@ export default function Contact() {
               </div>
               <h3 className="text-lg font-semibold">Phone</h3>
               <p className="mt-1">
-                <a href="tel:+11234567890" className="hover:text-accent">
+                <a href={SOCIAL_LINKS.phone} className="hover:text-accent">
                   (123) 456-7890
                 </a>
               </p>

@@ -1,4 +1,4 @@
-// filepath: /home/iamsg/codebase/playground/iamsg/src/components/Footer.tsx
+import { SOCIAL_LINKS } from '../constants/links'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -12,7 +12,7 @@ export default function Footer() {
           </div>
           <div className="flex space-x-4">
             <a
-              href="https://github.com/iamsg97"
+              href={SOCIAL_LINKS.github}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-accent transition-colors"
@@ -20,7 +20,7 @@ export default function Footer() {
               GitHub
             </a>
             <a
-              href="https://www.linkedin.com/in/suvadeepghoshal"
+              href={SOCIAL_LINKS.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-accent transition-colors"
@@ -28,7 +28,7 @@ export default function Footer() {
               LinkedIn
             </a>
             <a
-              href="https://x.com/ghoshalsuvadeep"
+              href={SOCIAL_LINKS.twitter}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-accent transition-colors"
