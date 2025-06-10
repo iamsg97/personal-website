@@ -1,3 +1,4 @@
+import { SectionContainer } from './SectionContainer'
 import { Card, CardContent } from './ui/card'
 
 export default function Skills() {
@@ -22,7 +23,7 @@ export default function Skills() {
 
   return (
     <section id="skills" className="bg-muted/30 py-16">
-      <div className="container px-4 sm:px-6 lg:px-8">
+      <SectionContainer>
         <h2 className="mb-12 text-center text-3xl font-bold">Skills & Technologies</h2>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -55,7 +56,7 @@ export default function Skills() {
             </Card>
           ))}
         </div>
-      </div>
+      </SectionContainer>
     </section>
   )
 }

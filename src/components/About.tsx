@@ -1,9 +1,10 @@
+import { SectionContainer } from './SectionContainer'
 import { Card, CardContent } from './ui/card'
 
 export default function About() {
   return (
     <section id="about" className="py-16">
-      <div className="container">
+      <SectionContainer>
         <h2 className="mb-12 text-center text-3xl font-bold">About Me</h2>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
@@ -15,6 +16,8 @@ export default function About() {
                 className="ring-accent/20 aspect-square w-full max-w-sm rounded-full object-cover shadow-lg ring-4"
                 loading="lazy"
                 decoding="async"
+                width="384"
+                height="384"
               />
             </div>
           </div>
@@ -60,7 +63,7 @@ export default function About() {
             </Card>
           </div>
         </div>
-      </div>
+      </SectionContainer>
     </section>
   )
 }

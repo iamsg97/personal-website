@@ -1,11 +1,12 @@
 import { SOCIAL_LINKS } from '../constants/links'
+import { SectionContainer } from './SectionContainer'
 import { Button } from './ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 
 export default function Contact() {
   return (
     <section id="contact" className="bg-muted/30 py-16">
-      <div className="container">
+      <SectionContainer>
         <h2 className="mb-12 text-center text-3xl font-bold">Get In Touch</h2>
 
         <div className="mx-auto max-w-2xl">
@@ -149,7 +150,7 @@ export default function Contact() {
             </div>
           </div>
         </div>
-      </div>
+      </SectionContainer>
     </section>
   )
 }
