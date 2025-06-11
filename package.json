@@ -2,6 +2,7 @@
   "name": "iamsg-fe",
   "private": true,
   "type": "module",
+  "version": "0.1.1",
   "scripts": {
     "dev": "vite --port 3000",
     "start": "vite --port 3000",
