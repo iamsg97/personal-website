@@ -36,7 +36,7 @@ export default function Header() {
     <header
       className={`bg-background sticky top-0 z-40 border-b ${scrolled ? 'shadow-sm' : ''} transition-shadow`}
     >
-      <div className="container flex h-16 items-center justify-between py-4">
+      <div className="container mx-auto flex h-16 max-w-7xl items-center px-4 sm:px-6 lg:px-8">
         {/* Logo on the left */}
         <div>
           <Link to="/" className="text-xl font-bold">
@@ -44,7 +44,7 @@ export default function Header() {
           </Link>
         </div>
         {/* Navigation centered - desktop */}
-        <div className="flex flex-grow justify-center">
+        <div className="flex flex-1 justify-center">
           {' '}
           <nav className="hidden items-center gap-6 text-sm md:flex">
             <Link to="/" className="hover:text-accent font-medium transition-colors">
@@ -83,14 +83,6 @@ export default function Header() {
         {/* Auth buttons and theme toggle on the right */}
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <div className="hidden md:block">
-            <Button variant="outline" size="sm">
-              Sign In
-            </Button>
-            <Button size="sm" className="ml-2">
-              Sign Up
-            </Button>
-          </div>{' '}
           {/* Mobile menu button */}
           <button
             type="button"
