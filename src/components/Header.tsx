@@ -1,9 +1,7 @@
-import { Link } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 
 import { NAV_SECTIONS } from '../constants/links'
 import { ThemeToggle } from './ThemeToggle'
-import { Button } from './ui/button'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -32,6 +30,15 @@ export default function Header() {
     handleNavClick()
   }
 
+  // Handle scroll to top
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+    handleNavClick()
+  }
+
   return (
     <header
       className={`bg-background sticky top-0 z-40 border-b ${scrolled ? 'shadow-sm' : ''} transition-shadow`}
@@ -39,17 +46,25 @@ export default function Header() {
       <div className="container mx-auto flex h-16 max-w-7xl items-center px-4 sm:px-6 lg:px-8">
         {/* Logo on the left */}
         <div>
-          <Link to="/" className="text-xl font-bold">
+          <button
+            type="button"
+            onClick={scrollToTop}
+            className="hover:text-accent text-xl font-bold transition-colors"
+          >
             My Portfolio
-          </Link>
+          </button>
         </div>
         {/* Navigation centered - desktop */}
         <div className="flex flex-1 justify-center">
           {' '}
           <nav className="hidden items-center gap-6 text-sm md:flex">
-            <Link to="/" className="hover:text-accent font-medium transition-colors">
+            <button
+              type="button"
+              onClick={scrollToTop}
+              className="hover:text-accent font-medium transition-colors"
+            >
               Home
-            </Link>
+            </button>
             <button
               type="button"
               onClick={() => scrollToSection(NAV_SECTIONS.about)}
@@ -99,6 +114,7 @@ export default function Header() {
                 stroke="currentColor"
                 className="h-6 w-6"
               >
+                <title>Close menu</title>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
@@ -110,6 +126,7 @@ export default function Header() {
                 stroke="currentColor"
                 className="h-6 w-6"
               >
+                <title>Close menu</title>
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -125,13 +142,13 @@ export default function Header() {
       {isMenuOpen && (
         <div className="bg-background border-t py-4 md:hidden">
           <nav className="container flex flex-col space-y-3">
-            <Link
-              to="/"
-              className="hover:text-accent px-4 py-2 font-medium transition-colors"
-              onClick={handleNavClick}
+            <button
+              type="button"
+              onClick={scrollToTop}
+              className="hover:text-accent px-4 py-2 text-left font-medium transition-colors"
             >
               Home
-            </Link>
+            </button>
             <button
               type="button"
               onClick={() => scrollToSection(NAV_SECTIONS.about)}
@@ -160,16 +177,8 @@ export default function Header() {
             >
               Contact
             </button>
-            <div className="flex items-center justify-between gap-2 px-4 pt-4">
+            <div className="flex justify-center px-4 pt-4">
               <ThemeToggle />
-              <div className="flex flex-1 gap-2">
-                <Button variant="outline" size="sm" className="w-full">
-                  Sign In
-                </Button>
-                <Button size="sm" className="w-full">
-                  Sign Up
-                </Button>
-              </div>
             </div>
           </nav>
         </div>

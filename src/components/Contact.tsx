@@ -83,6 +83,7 @@ export default function Contact() {
                   stroke="currentColor"
                   className="text-accent h-6 w-6"
                 >
+                  <title>Email icon</title>
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -108,6 +109,7 @@ export default function Contact() {
                   stroke="currentColor"
                   className="text-accent h-6 w-6"
                 >
+                  <title>Location icon</title>
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -134,6 +136,7 @@ export default function Contact() {
                   stroke="currentColor"
                   className="text-accent h-6 w-6"
                 >
+                  <title>Phone icon</title>
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
