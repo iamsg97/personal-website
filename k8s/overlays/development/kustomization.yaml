@@ -6,7 +6,7 @@ metadata:
 
 # Base configuration to inherit from
 bases:
-- ../../base
+  - ../../base
 
 # Namespace for development
 namespace: portfolio-dev
@@ -16,22 +16,22 @@ nameSuffix: -dev
 
 # Image tag for development
 images:
-- name: portfolio-app
-  newTag: dev-latest
+  - name: portfolio-app
+    newTag: dev-latest
 
 # Patches for development-specific configurations
 patchesStrategicMerge:
-- replica-patch.yaml
-- resource-patch.yaml
+  - replica-patch.yaml
+  - resource-patch.yaml
 
 # ConfigMap generator for development-specific env vars
 configMapGenerator:
-- name: portfolio-app-config
-  behavior: merge
-  literals:
-  - NODE_ENV=development
-  - LOG_LEVEL=debug
-  - DEBUG=true
+  - name: portfolio-app-config
+    behavior: merge
+    literals:
+      - NODE_ENV=development
+      - LOG_LEVEL=debug
+      - DEBUG=true
 
 # Common labels for development
 commonLabels:

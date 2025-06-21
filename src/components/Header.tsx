@@ -51,7 +51,12 @@ export default function Header() {
             onClick={scrollToTop}
             className="hover:text-accent text-xl font-bold transition-colors"
           >
-            My Portfolio
+            <img
+              src="/public/webheadshot.png"
+              alt="Logo"
+              className="mr-2 inline-block h-8 w-8 rounded-full align-middle"
+            />
+            SG
           </button>
         </div>
         {/* Navigation centered - desktop */}

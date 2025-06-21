@@ -1,31 +1,31 @@
 version: '3.8'
 
 services:
-  portfolio-app:
+  iamsg97-personal-website:
     build:
       context: .
       dockerfile: Dockerfile
       target: production
     ports:
-      - "3000:80"
+      - '3000:80'
     environment:
       - NODE_ENV=production
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      test: ['CMD', 'curl', '-f', 'http://localhost/health']
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
     restart: unless-stopped
-    
+
   # Optional: Add a simple monitoring stack
   nginx-exporter:
     image: nginx/nginx-prometheus-exporter:0.10.0
     ports:
-      - "9113:9113"
+      - '9113:9113'
     command:
-      - -nginx.scrape-uri=http://portfolio-app:80/nginx_status
+      - -nginx.scrape-uri=http://iamsg97-personal-website:80/nginx_status
     depends_on:
-      - portfolio-app
+      - iamsg97-personal-website
     profiles:
       - monitoring

@@ -3,4 +3,4 @@ kind: Deployment
 metadata:
   name: portfolio-app
 spec:
-  replicas: 1  # Single replica for development
+  replicas: 1 # Single replica for development

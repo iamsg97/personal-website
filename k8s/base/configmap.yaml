@@ -6,6 +6,6 @@ metadata:
     app: portfolio-app
     component: frontend
 data:
-  NODE_ENV: "production"
-  APP_NAME: "Portfolio App"
-  LOG_LEVEL: "info"
+  NODE_ENV: 'production'
+  APP_NAME: 'Portfolio App'
+  LOG_LEVEL: 'info'

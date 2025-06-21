@@ -6,7 +6,7 @@ metadata:
 
 # Base configuration to inherit from
 bases:
-- ../../base
+  - ../../base
 
 # Namespace for production
 namespace: portfolio-prod
@@ -16,23 +16,26 @@ nameSuffix: -prod
 
 # Image tag for production (will be set by CI/CD)
 images:
-- name: portfolio-app
-  newTag: v1.0.2
+  - name: portfolio-app
+    newTag: v1.0.2
 
 # Patches for production-specific configurations
 patchesStrategicMerge:
-- replica-patch.yaml
-- resource-patch.yaml
-- hpa-patch.yaml
+  - replica-patch.yaml
+  - resource-patch.yaml
+
+# Additional resources for production
+resources:
+  - hpa-patch.yaml
 
 # ConfigMap generator for production-specific env vars
 configMapGenerator:
-- name: portfolio-app-config
-  behavior: merge
-  literals:
-  - NODE_ENV=production
-  - LOG_LEVEL=error
-  - DEBUG=false
+  - name: portfolio-app-config
+    behavior: merge
+    literals:
+      - NODE_ENV=production
+      - LOG_LEVEL=error
+      - DEBUG=false
 
 # Common labels for production
 commonLabels:
