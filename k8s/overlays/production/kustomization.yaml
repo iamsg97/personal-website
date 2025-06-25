@@ -17,7 +17,7 @@ nameSuffix: -prod
 # Image tag for production (will be set by CI/CD)
 images:
   - name: portfolio-app
-    newTag: v1.0.2
+    newTag: v1.0.3
 
 # Patches for production-specific configurations
 patchesStrategicMerge:
