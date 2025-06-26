@@ -1,9 +1,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: portfolio-app-ingress
+  name: iamsg97-personal-website-ingress
   labels:
-    app: portfolio-app
+    app: iamsg97-personal-website
     component: frontend
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
@@ -15,7 +15,7 @@ spec:
   tls:
     - hosts:
         - portfolio.yourdomain.com
-      secretName: portfolio-tls
+      secretName: iamsg97-personal-website-tls
   rules:
     - host: portfolio.yourdomain.com
       http:
@@ -24,6 +24,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: portfolio-app-service
+                name: iamsg97-personal-website-service
                 port:
                   number: 80

@@ -2,21 +2,21 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 metadata:
-  name: portfolio-app-development
+  name: iamsg97-personal-website-development
 
 # Base configuration to inherit from
 bases:
   - ../../base
 
 # Namespace for development
-namespace: portfolio-dev
+namespace: iamsg97-personal-website-dev
 
 # Name suffix for development resources
 nameSuffix: -dev
 
 # Image tag for development
 images:
-  - name: portfolio-app
+  - name: iamsg97-personal-website
     newTag: dev-latest
 
 # Patches for development-specific configurations
@@ -26,7 +26,7 @@ patchesStrategicMerge:
 
 # ConfigMap generator for development-specific env vars
 configMapGenerator:
-  - name: portfolio-app-config
+  - name: iamsg97-personal-website-config
     behavior: merge
     literals:
       - NODE_ENV=development

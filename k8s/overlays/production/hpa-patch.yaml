@@ -1,15 +1,15 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: portfolio-app-hpa
+  name: iamsg97-personal-website-hpa
   labels:
-    app: portfolio-app
+    app: iamsg97-personal-website
     component: frontend
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: portfolio-app-prod
+    name: iamsg97-personal-website-prod
   minReplicas: 3
   maxReplicas: 10
   metrics:

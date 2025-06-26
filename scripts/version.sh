@@ -40,7 +40,7 @@ get_current_version() {
         CURRENT_VERSION=$(cat "$VERSION_FILE")
     else
         CURRENT_VERSION="0.0.0"
-        echo "$CURRENT_VERSION" > "$VERSION_FILE"
+        echo "$CURRENT_VERSION" >"$VERSION_FILE"
         print_warning "No version file found. Created with version $CURRENT_VERSION"
     fi
 }
@@ -57,48 +57,48 @@ validate_version() {
 increment_version() {
     local version_type=$1
     local version=$CURRENT_VERSION
-    
-    IFS='.' read -ra VERSION_PARTS <<< "$version"
+
+    IFS='.' read -ra VERSION_PARTS <<<"$version"
     local major=${VERSION_PARTS[0]}
     local minor=${VERSION_PARTS[1]}
     local patch=${VERSION_PARTS[2]}
-    
+
     case $version_type in
-        "major")
-            major=$((major + 1))
-            minor=0
-            patch=0
-            ;;
-        "minor")
-            minor=$((minor + 1))
-            patch=0
-            ;;
-        "patch")
-            patch=$((patch + 1))
-            ;;
-        *)
-            print_error "Invalid version type: $version_type. Use: major, minor, or patch"
-            exit 1
-            ;;
+    "major")
+        major=$((major + 1))
+        minor=0
+        patch=0
+        ;;
+    "minor")
+        minor=$((minor + 1))
+        patch=0
+        ;;
+    "patch")
+        patch=$((patch + 1))
+        ;;
+    *)
+        print_error "Invalid version type: $version_type. Use: major, minor, or patch"
+        exit 1
+        ;;
     esac
-    
+
     NEW_VERSION="$major.$minor.$patch"
 }
 
 # Function to update version in files
 update_version_files() {
     print_info "Updating version files..."
-    
+
     # Update VERSION file
-    echo "$NEW_VERSION" > "$VERSION_FILE"
-    
+    echo "$NEW_VERSION" >"$VERSION_FILE"
+
     # Update package.json
     if [[ -f "package.json" ]]; then
         # Use sed to update package.json version manually
         sed -i "s/\"version\": \"[^\"]*\"/\"version\": \"$NEW_VERSION\"/" package.json
         print_success "Updated package.json to version $NEW_VERSION"
     fi
-    
+
     # Update Kubernetes base kustomization
     if [[ -f "k8s/base/kustomization.yaml" ]]; then
         sed -i.bak "s/version: v.*/version: v$NEW_VERSION/" k8s/base/kustomization.yaml
@@ -106,20 +106,20 @@ update_version_files() {
         rm k8s/base/kustomization.yaml.bak 2>/dev/null || true
         print_success "Updated Kubernetes base kustomization to version v$NEW_VERSION"
     fi
-    
+
     # Update production overlay
     if [[ -f "k8s/overlays/production/kustomization.yaml" ]]; then
         sed -i.bak "s/newTag: v.*/newTag: v$NEW_VERSION/" k8s/overlays/production/kustomization.yaml
         rm k8s/overlays/production/kustomization.yaml.bak 2>/dev/null || true
         print_success "Updated production overlay to version v$NEW_VERSION"
     fi
-    
+
     print_success "All version files updated to $NEW_VERSION"
 }
 
 # Function to create git tag
 create_git_tag() {
-    if command -v git &> /dev/null && [[ -d ".git" ]]; then
+    if command -v git &>/dev/null && [[ -d ".git" ]]; then
         print_info "Creating git tag..."
         git add .
         git commit -m "chore: bump version to v$NEW_VERSION" || true
@@ -134,13 +134,13 @@ create_git_tag() {
 # Function to build and tag Docker image
 build_docker_image() {
     print_info "Building Docker image..."
-    
-    local image_name="portfolio-app"
+
+    local image_name="iamsg97-personal-website"
     local image_tag="v$NEW_VERSION"
-    
+
     # Build the image
     docker build -t "$image_name:$image_tag" -t "$image_name:latest" .
-    
+
     print_success "Built Docker image: $image_name:$image_tag"
     print_info "Push image with: docker push $image_name:$image_tag"
 }
@@ -168,61 +168,61 @@ main() {
     local dry_run=false
     local skip_git=false
     local skip_docker=false
-    
+
     # Parse arguments
     while [[ $# -gt 0 ]]; do
         case $1 in
-            major|minor|patch)
-                version_type=$1
-                shift
-                ;;
-            --dry-run)
-                dry_run=true
-                shift
-                ;;
-            --no-git)
-                skip_git=true
-                shift
-                ;;
-            --no-docker)
-                skip_docker=true
-                shift
-                ;;
-            --help)
-                show_usage
-                exit 0
-                ;;
-            *)
-                print_error "Unknown option: $1"
-                show_usage
-                exit 1
-                ;;
+        major | minor | patch)
+            version_type=$1
+            shift
+            ;;
+        --dry-run)
+            dry_run=true
+            shift
+            ;;
+        --no-git)
+            skip_git=true
+            shift
+            ;;
+        --no-docker)
+            skip_docker=true
+            shift
+            ;;
+        --help)
+            show_usage
+            exit 0
+            ;;
+        *)
+            print_error "Unknown option: $1"
+            show_usage
+            exit 1
+            ;;
         esac
     done
-    
+
     # Validate input
     if [[ -z "$version_type" ]]; then
         print_error "Version type is required"
         show_usage
         exit 1
     fi
-    
+
     # Get current version
     get_current_version
     validate_version "$CURRENT_VERSION"
-    
+
     # Calculate new version
     increment_version "$version_type"
-    
+
     print_info "Current version: $CURRENT_VERSION"
     print_info "New version: $NEW_VERSION"
-    
+
     if [[ "$dry_run" == true ]]; then
         print_warning "DRY RUN MODE - No changes will be made"
         print_info "Would update version from $CURRENT_VERSION to $NEW_VERSION"
         exit 0
     fi
-    
+
     # Confirm with user
     read -p "Continue with version bump? (y/N) " -n 1 -r
     echo
@@ -230,20 +230,20 @@ main() {
         print_info "Version bump cancelled"
         exit 0
     fi
-    
+
     # Update version files
     update_version_files
-    
+
     # Git operations
     if [[ "$skip_git" != true ]]; then
         create_git_tag
     fi
-    
+
     # Docker operations
     if [[ "$skip_docker" != true ]]; then
         build_docker_image
     fi
-    
+
     print_success "Version bump completed successfully! 🎉"
     print_info "New version: v$NEW_VERSION"
 }

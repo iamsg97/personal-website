@@ -128,15 +128,15 @@ deploy() {
     print_success "Deployment completed successfully!"
 
     # Show deployment status
-    local namespace="portfolio-$ENVIRONMENT"
+    local namespace="iamsg97-personal-website-$ENVIRONMENT"
     if [[ "$ENVIRONMENT" == "development" ]]; then
-        namespace="portfolio-dev"
+        namespace="iamsg97-personal-website-dev"
     elif [[ "$ENVIRONMENT" == "production" ]]; then
-        namespace="portfolio-prod"
+        namespace="iamsg97-personal-website-prod"
     fi
 
     print_info "Checking deployment status..."
-    kubectl get pods -n "$namespace" -l app=portfolio-app
+    kubectl get pods -n "$namespace" -l app=iamsg97-personal-website
 }
 
 # Function to delete deployment
@@ -163,35 +163,35 @@ show_diff() {
 
 # Function to show status
 show_status() {
-    local namespace="portfolio-$ENVIRONMENT"
+    local namespace="iamsg97-personal-website-$ENVIRONMENT"
     if [[ "$ENVIRONMENT" == "development" ]]; then
-        namespace="portfolio-dev"
+        namespace="iamsg97-personal-website-dev"
     elif [[ "$ENVIRONMENT" == "production" ]]; then
-        namespace="portfolio-prod"
+        namespace="iamsg97-personal-website-prod"
     fi
 
     print_info "Deployment status for $ENVIRONMENT environment:"
     echo ""
 
     print_info "Pods:"
-    kubectl get pods -n "$namespace" -l app=portfolio-app 2>/dev/null || print_warning "No pods found or namespace doesn't exist"
+    kubectl get pods -n "$namespace" -l app=iamsg97-personal-website 2>/dev/null || print_warning "No pods found or namespace doesn't exist"
 
     echo ""
     print_info "Services:"
-    kubectl get services -n "$namespace" -l app=portfolio-app 2>/dev/null || print_warning "No services found or namespace doesn't exist"
+    kubectl get services -n "$namespace" -l app=iamsg97-personal-website 2>/dev/null || print_warning "No services found or namespace doesn't exist"
 
     echo ""
     print_info "Ingress:"
-    kubectl get ingress -n "$namespace" -l app=portfolio-app 2>/dev/null || print_warning "No ingress found or namespace doesn't exist"
+    kubectl get ingress -n "$namespace" -l app=iamsg97-personal-website 2>/dev/null || print_warning "No ingress found or namespace doesn't exist"
 }
 
 # Function to show detailed status with troubleshooting
 show_detailed_status() {
-    local namespace="portfolio-$ENVIRONMENT"
+    local namespace="iamsg97-personal-website-$ENVIRONMENT"
     if [[ "$ENVIRONMENT" == "development" ]]; then
-        namespace="portfolio-dev"
+        namespace="iamsg97-personal-website-dev"
     elif [[ "$ENVIRONMENT" == "production" ]]; then
-        namespace="portfolio-prod"
+        namespace="iamsg97-personal-website-prod"
     fi
 
     print_info "=== DETAILED STATUS FOR $ENVIRONMENT ENVIRONMENT ==="
@@ -202,39 +202,39 @@ show_detailed_status() {
     kubectl get namespace "$namespace" 2>/dev/null || print_warning "Namespace $namespace doesn't exist"
     echo ""
 
-    # Check all resources with portfolio-app label
+    # Check all resources with iamsg97-personal-website label
     print_info "All Resources:"
-    kubectl get all -n "$namespace" -l app=portfolio-app 2>/dev/null || print_warning "No resources found"
+    kubectl get all -n "$namespace" -l app=iamsg97-personal-website 2>/dev/null || print_warning "No resources found"
     echo ""
 
     # Check pods in detail
     print_info "Pod Details:"
-    kubectl get pods -n "$namespace" -l app=portfolio-app -o wide 2>/dev/null || print_warning "No pods found"
+    kubectl get pods -n "$namespace" -l app=iamsg97-personal-website -o wide 2>/dev/null || print_warning "No pods found"
     echo ""
 
     # Check deployments
     print_info "Deployment Status:"
-    kubectl get deployments -n "$namespace" -l app=portfolio-app 2>/dev/null || print_warning "No deployments found"
+    kubectl get deployments -n "$namespace" -l app=iamsg97-personal-website 2>/dev/null || print_warning "No deployments found"
     echo ""
 
     # Check replica sets
     print_info "ReplicaSets:"
-    kubectl get replicasets -n "$namespace" -l app=portfolio-app 2>/dev/null || print_warning "No replica sets found"
+    kubectl get replicasets -n "$namespace" -l app=iamsg97-personal-website 2>/dev/null || print_warning "No replica sets found"
     echo ""
 
     # Check services
     print_info "Service Details:"
-    kubectl get services -n "$namespace" -l app=portfolio-app -o wide 2>/dev/null || print_warning "No services found"
+    kubectl get services -n "$namespace" -l app=iamsg97-personal-website -o wide 2>/dev/null || print_warning "No services found"
     echo ""
 
     # Check ingress
     print_info "Ingress Details:"
-    kubectl get ingress -n "$namespace" -l app=portfolio-app -o wide 2>/dev/null || print_warning "No ingress found"
+    kubectl get ingress -n "$namespace" -l app=iamsg97-personal-website -o wide 2>/dev/null || print_warning "No ingress found"
     echo ""
 
     # Check configmaps
     print_info "ConfigMaps:"
-    kubectl get configmaps -n "$namespace" -l app=portfolio-app 2>/dev/null || print_warning "No configmaps found"
+    kubectl get configmaps -n "$namespace" -l app=iamsg97-personal-website 2>/dev/null || print_warning "No configmaps found"
     echo ""
 
     # Check events
@@ -243,7 +243,7 @@ show_detailed_status() {
     echo ""
 
     # Check pod status and issues
-    local pods=$(kubectl get pods -n "$namespace" -l app=portfolio-app -o jsonpath='{.items[*].metadata.name}' 2>/dev/null)
+    local pods=$(kubectl get pods -n "$namespace" -l app=iamsg97-personal-website -o jsonpath='{.items[*].metadata.name}' 2>/dev/null)
     if [[ -n "$pods" ]]; then
         for pod in $pods; do
             local status=$(kubectl get pod "$pod" -n "$namespace" -o jsonpath='{.status.phase}' 2>/dev/null)
@@ -263,11 +263,11 @@ show_detailed_status() {
 
 # Function to show logs
 show_logs() {
-    local namespace="portfolio-$ENVIRONMENT"
+    local namespace="iamsg97-personal-website-$ENVIRONMENT"
     if [[ "$ENVIRONMENT" == "development" ]]; then
-        namespace="portfolio-dev"
+        namespace="iamsg97-personal-website-dev"
     elif [[ "$ENVIRONMENT" == "production" ]]; then
-        namespace="portfolio-prod"
+        namespace="iamsg97-personal-website-prod"
     fi
 
     local follow_flag=""
@@ -302,8 +302,8 @@ show_logs() {
         print_info "Logs for pod: $pod_name"
         kubectl logs -n "$namespace" "$pod_name" --tail="$lines" $follow_flag 2>/dev/null || print_error "Failed to get logs for pod $pod_name"
     else
-        # Show logs for all pods with portfolio-app label
-        local pods=$(kubectl get pods -n "$namespace" -l app=portfolio-app -o jsonpath='{.items[*].metadata.name}' 2>/dev/null)
+        # Show logs for all pods with iamsg97-personal-website label
+        local pods=$(kubectl get pods -n "$namespace" -l app=iamsg97-personal-website -o jsonpath='{.items[*].metadata.name}' 2>/dev/null)
 
         if [[ -z "$pods" ]]; then
             print_warning "No pods found in namespace $namespace"
@@ -320,11 +320,11 @@ show_logs() {
 
 # Function to describe resources
 describe_resources() {
-    local namespace="portfolio-$ENVIRONMENT"
+    local namespace="iamsg97-personal-website-$ENVIRONMENT"
     if [[ "$ENVIRONMENT" == "development" ]]; then
-        namespace="portfolio-dev"
+        namespace="iamsg97-personal-website-dev"
     elif [[ "$ENVIRONMENT" == "production" ]]; then
-        namespace="portfolio-prod"
+        namespace="iamsg97-personal-website-prod"
     fi
 
     local resource_type="${1:-all}"
@@ -334,7 +334,7 @@ describe_resources() {
 
     case "$resource_type" in
     "pod" | "pods")
-        local pods=$(kubectl get pods -n "$namespace" -l app=portfolio-app -o jsonpath='{.items[*].metadata.name}' 2>/dev/null)
+        local pods=$(kubectl get pods -n "$namespace" -l app=iamsg97-personal-website -o jsonpath='{.items[*].metadata.name}' 2>/dev/null)
         for pod in $pods; do
             print_info "=== Pod: $pod ==="
             kubectl describe pod "$pod" -n "$namespace"
@@ -342,7 +342,7 @@ describe_resources() {
         done
         ;;
     "deployment" | "deployments")
-        local deployments=$(kubectl get deployments -n "$namespace" -l app=portfolio-app -o jsonpath='{.items[*].metadata.name}' 2>/dev/null)
+        local deployments=$(kubectl get deployments -n "$namespace" -l app=iamsg97-personal-website -o jsonpath='{.items[*].metadata.name}' 2>/dev/null)
         for deployment in $deployments; do
             print_info "=== Deployment: $deployment ==="
             kubectl describe deployment "$deployment" -n "$namespace"
@@ -350,7 +350,7 @@ describe_resources() {
         done
         ;;
     "service" | "services")
-        local services=$(kubectl get services -n "$namespace" -l app=portfolio-app -o jsonpath='{.items[*].metadata.name}' 2>/dev/null)
+        local services=$(kubectl get services -n "$namespace" -l app=iamsg97-personal-website -o jsonpath='{.items[*].metadata.name}' 2>/dev/null)
         for service in $services; do
             print_info "=== Service: $service ==="
             kubectl describe service "$service" -n "$namespace"
@@ -358,7 +358,7 @@ describe_resources() {
         done
         ;;
     "ingress")
-        local ingresses=$(kubectl get ingress -n "$namespace" -l app=portfolio-app -o jsonpath='{.items[*].metadata.name}' 2>/dev/null)
+        local ingresses=$(kubectl get ingress -n "$namespace" -l app=iamsg97-personal-website -o jsonpath='{.items[*].metadata.name}' 2>/dev/null)
         for ingress in $ingresses; do
             print_info "=== Ingress: $ingress ==="
             kubectl describe ingress "$ingress" -n "$namespace"
@@ -377,11 +377,11 @@ describe_resources() {
 
 # Function to debug common issues
 debug_issues() {
-    local namespace="portfolio-$ENVIRONMENT"
+    local namespace="iamsg97-personal-website-$ENVIRONMENT"
     if [[ "$ENVIRONMENT" == "development" ]]; then
-        namespace="portfolio-dev"
+        namespace="iamsg97-personal-website-dev"
     elif [[ "$ENVIRONMENT" == "production" ]]; then
-        namespace="portfolio-prod"
+        namespace="iamsg97-personal-website-prod"
     fi
 
     print_info "=== DEBUGGING COMMON ISSUES ==="
@@ -399,7 +399,7 @@ debug_issues() {
 
     # Check if any pods exist
     print_info "2. Checking for pods..."
-    local pod_count=$(kubectl get pods -n "$namespace" -l app=portfolio-app --no-headers 2>/dev/null | wc -l)
+    local pod_count=$(kubectl get pods -n "$namespace" -l app=iamsg97-personal-website --no-headers 2>/dev/null | wc -l)
     if [[ "$pod_count" -eq 0 ]]; then
         print_error "No pods found!"
         print_info "Check if deployment was successful with: kubectl get deployments -n $namespace"
@@ -409,7 +409,7 @@ debug_issues() {
 
     # Check pod status
     print_info "3. Checking pod status..."
-    local pods=$(kubectl get pods -n "$namespace" -l app=portfolio-app -o jsonpath='{.items[*].metadata.name}' 2>/dev/null)
+    local pods=$(kubectl get pods -n "$namespace" -l app=iamsg97-personal-website -o jsonpath='{.items[*].metadata.name}' 2>/dev/null)
     for pod in $pods; do
         local status=$(kubectl get pod "$pod" -n "$namespace" -o jsonpath='{.status.phase}' 2>/dev/null)
         local ready=$(kubectl get pod "$pod" -n "$namespace" -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}' 2>/dev/null)
@@ -448,7 +448,7 @@ debug_issues() {
 
     # Check service endpoints
     print_info "4. Checking service endpoints..."
-    local services=$(kubectl get services -n "$namespace" -l app=portfolio-app -o jsonpath='{.items[*].metadata.name}' 2>/dev/null)
+    local services=$(kubectl get services -n "$namespace" -l app=iamsg97-personal-website -o jsonpath='{.items[*].metadata.name}' 2>/dev/null)
     for service in $services; do
         local endpoints=$(kubectl get endpoints "$service" -n "$namespace" -o jsonpath='{.subsets[*].addresses[*].ip}' 2>/dev/null)
         if [[ -z "$endpoints" ]]; then
@@ -461,7 +461,7 @@ debug_issues() {
 
     # Check ingress
     print_info "5. Checking ingress..."
-    local ingresses=$(kubectl get ingress -n "$namespace" -l app=portfolio-app -o jsonpath='{.items[*].metadata.name}' 2>/dev/null)
+    local ingresses=$(kubectl get ingress -n "$namespace" -l app=iamsg97-personal-website -o jsonpath='{.items[*].metadata.name}' 2>/dev/null)
     for ingress in $ingresses; do
         local ingress_ip=$(kubectl get ingress "$ingress" -n "$namespace" -o jsonpath='{.status.loadBalancer.ingress[0].ip}' 2>/dev/null)
         if [[ -z "$ingress_ip" ]]; then

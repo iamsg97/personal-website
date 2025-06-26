@@ -2,11 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 metadata:
-  name: portfolio-app-base
+  name: iamsg97-personal-website-base
 
 # Common labels applied to all resources
 commonLabels:
-  app: portfolio-app
+  app: iamsg97-personal-website
   version: v1.0.3
 
 # Common annotations
@@ -23,19 +23,19 @@ resources:
 
 # Image configurations
 images:
-  - name: portfolio-app
+  - name: iamsg97-personal-website
     newTag: v1.0.3
 
 # ConfigMap generator (optional - can be used instead of configmap.yaml)
 # configMapGenerator:
-# - name: portfolio-app-config
+# - name: iamsg97-personal-website-config
 #   literals: example configs like env or application.properties (if applicable)
 #   - NODE_ENV=production
 #   - APP_NAME=Portfolio App
 #   - LOG_LEVEL=info
 
 # Name prefix for all resources
-namePrefix: ''
+namePrefix: 'iamsg97-personal-website-'
 
 # Name suffix for all resources
 nameSuffix: ''

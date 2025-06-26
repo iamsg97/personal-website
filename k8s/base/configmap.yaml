@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: portfolio-app-config
+  name: iamsg97-personal-website-config
   labels:
-    app: portfolio-app
+    app: iamsg97-personal-website
     component: frontend
 data:
   NODE_ENV: 'production'

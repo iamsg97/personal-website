@@ -1,6 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: portfolio-app
+  name: iamsg97-personal-website
 spec:
   replicas: 3 # Multiple replicas for production high availability
