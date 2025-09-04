@@ -7,7 +7,7 @@ metadata:
 # Common labels applied to all resources
 commonLabels:
   app: iamsg97-personal-website
-  version: v1.0.3
+  version: v1.0.7
 
 # Common annotations
 commonAnnotations:
@@ -24,7 +24,7 @@ resources:
 # Image configurations
 images:
   - name: iamsg97-personal-website
-    newTag: v1.0.3
+    newTag: v1.0.7
 
 # ConfigMap generator (optional - can be used instead of configmap.yaml)
 # configMapGenerator:
@@ -41,3 +41,7 @@ namePrefix: 'iamsg97-personal-website-'
 nameSuffix: ''
 # Namespace to deploy resources
 # namespace: portfolio
+
+
+
+
