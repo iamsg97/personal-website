@@ -11,8 +11,8 @@
 #   Requires a clean working tree.
 #
 # build:
-#   Read-only. Prints a SemVer build-metadata string for the *current*
-#   released version, e.g. `1.2.3+build.42.a1b2c3d`, without touching git or
+#   Read-only. Prints a build-identifier string for the *current* released
+#   version, e.g. `1.2.3-build.42.a1b2c3d`, without touching git or
 #   package.json. Used by CI to produce a unique, traceable Docker image tag
 #   for every build of the same release (many builds can share one
 #   major/minor/patch). If $GITHUB_OUTPUT is set, also writes `version=...`
@@ -88,7 +88,9 @@ case "$command" in
     version="$(current_version)"
     build_number="${GITHUB_RUN_NUMBER:-$(git rev-list --count HEAD)}"
     short_sha="$(git rev-parse --short HEAD)"
-    full_version="${version}+build.${build_number}.${short_sha}"
+    # Docker tags don't allow "+", so this deviates slightly from strict SemVer
+    # build-metadata syntax (which would use "+") in favor of "-".
+    full_version="${version}-build.${build_number}.${short_sha}"
 
     echo "$full_version"
 
