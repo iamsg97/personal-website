@@ -12,7 +12,7 @@ COPY . .
 # NEXT_PUBLIC_* vars are inlined into the compiled output at build time, not
 # read at container runtime -- must be passed as a build arg, not an ECS
 # task-definition environment variable.
-ARG NEXT_PUBLIC_SITE_URL
+ARG NEXT_PUBLIC_SITE_URL=https://suvadeepghoshal.dev
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
 RUN npm run build
 
