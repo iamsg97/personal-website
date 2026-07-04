@@ -1,0 +1,29 @@
+.prose p {
+  margin-bottom: 1rem;
+  color: var(--fg);
+}
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+.subhead {
+  margin-top: 2rem;
+  margin-bottom: 0.85rem;
+  color: var(--fg-muted);
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.todo {
+  display: grid;
+  gap: 0.6rem;
+}
+.todo li {
+  max-width: var(--measure);
+}
+
+.box {
+  color: var(--accent);
+  margin-right: 0.6rem;
+  white-space: nowrap;
+}

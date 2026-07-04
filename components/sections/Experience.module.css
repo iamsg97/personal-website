@@ -1,0 +1,41 @@
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.company {
+  color: var(--fg);
+  font-weight: 700;
+}
+.role {
+  color: var(--accent);
+}
+
+.period {
+  color: var(--fg-muted);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.meta {
+  color: var(--fg-muted);
+  font-size: 0.85rem;
+  margin-top: 0.15rem;
+  margin-bottom: 1rem;
+}
+
+.bullets {
+  display: grid;
+  gap: 0.7rem;
+}
+.bullets li {
+  max-width: var(--measure);
+}
+
+.marker {
+  color: var(--accent);
+  margin-right: 0.6rem;
+}

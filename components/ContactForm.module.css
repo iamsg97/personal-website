@@ -1,0 +1,74 @@
+.form {
+  display: grid;
+  gap: 1rem;
+  max-width: 42rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.label {
+  color: var(--accent);
+  font-size: 0.85rem;
+}
+
+.field input,
+.field textarea {
+  font: inherit;
+  color: var(--fg);
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  padding: 0.55rem 0.7rem;
+  width: 100%;
+  resize: vertical;
+  caret-color: var(--accent);
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.submit {
+  font: inherit;
+  color: var(--bg);
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 0.5rem 1.1rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+.submit:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+.submit:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.ok {
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+.error {
+  color: var(--danger);
+  font-size: 0.9rem;
+}

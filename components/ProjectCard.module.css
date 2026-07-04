@@ -1,0 +1,57 @@
+.card {
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+  padding: 1.1rem 1.25rem;
+}
+.card:hover {
+  border-color: var(--accent);
+}
+
+.head {
+  display: flex;
+  gap: 0.5rem 1rem;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.name {
+  font-size: 1rem;
+  font-weight: 700;
+}
+.marker {
+  color: var(--accent);
+}
+.subtitle {
+  color: var(--fg-muted);
+  font-weight: 400;
+}
+
+.year {
+  color: var(--fg-muted);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.role {
+  color: var(--accent-2);
+  font-size: 0.85rem;
+  margin-top: 0.2rem;
+}
+
+.blurb {
+  margin-top: 0.6rem;
+  color: var(--fg);
+}
+
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.85rem;
+}
+.tag {
+  font-size: 0.75rem;
+  color: var(--fg-muted);
+  border: 1px solid var(--border);
+  padding: 0.1rem 0.45rem;
+}

@@ -1,0 +1,29 @@
+.prompt {
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.user {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.at {
+  color: var(--fg);
+}
+
+.sep {
+  color: var(--fg-muted);
+}
+
+.path {
+  color: var(--accent-2);
+}
+
+.dollar {
+  color: var(--fg-muted);
+}
+
+.command {
+  color: var(--fg);
+}

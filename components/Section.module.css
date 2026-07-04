@@ -1,0 +1,24 @@
+.section {
+  padding-block: 3.5rem;
+  border-top: 1px dashed var(--border);
+}
+
+.heading {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 1.75rem;
+}
+
+.body {
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--border);
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding-block: 2.5rem;
+  }
+  .body {
+    padding-left: 0.85rem;
+  }
+}

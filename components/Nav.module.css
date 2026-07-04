@@ -1,0 +1,77 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 3.25rem;
+}
+
+.home {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.user {
+  color: var(--accent);
+  font-weight: 700;
+}
+.at {
+  color: var(--fg);
+}
+.dollar {
+  color: var(--fg-muted);
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.links::-webkit-scrollbar {
+  display: none;
+}
+
+.link {
+  color: var(--fg-muted);
+  font-size: 0.85rem;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.link:hover {
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.linkActive {
+  color: var(--accent);
+}
+.linkActive::before {
+  content: "▸ ";
+}
+
+@media (max-width: 720px) {
+  .home {
+    font-size: 0.85rem;
+  }
+  .links {
+    gap: 0.85rem;
+  }
+  .link {
+    font-size: 0.8rem;
+  }
+}
