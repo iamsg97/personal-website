@@ -47,11 +47,14 @@ back to a `mailto:` link and the GitHub section uses the unauthenticated API.
 
 ## Editing content
 
-All copy lives in typed modules under [`content/`](./content) — edit those, not
-the components:
+Content lives under [`content/`](./content) — edit those, not the components:
 
-- `profile.ts` — name, tagline, about, aspirations, socials
-- `experience.ts`, `projects.ts`, `skills.ts`, `uses.ts`
+- **`resume.mdx`** — the growing source of truth for **experience, projects,
+  tech stack, and certifications** (YAML frontmatter). Add a project / skill
+  group / cert here and the site updates. Certifications use `done: true`
+  (earned → green ✓) or `done: false` (in progress → yellow clock).
+- `profile.ts` — name, tagline, about, aspirations (with inline links), socials
+- `uses.ts` — the dotfiles / terminal setup
 - `lib/sections.ts` — section order + terminal-style headings
 
 ## Deploy

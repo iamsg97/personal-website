@@ -1,8 +1,9 @@
 import { Section } from "@/components/Section";
-import { experience } from "@/content/experience";
+import { getResume } from "@/lib/resume";
 import styles from "./Experience.module.css";
 
 export function Experience() {
+  const { experience } = getResume();
   return (
     <Section id="experience" command="cat experience.log">
       <div className={styles.jobs}>

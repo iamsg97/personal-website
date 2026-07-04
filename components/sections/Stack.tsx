@@ -1,8 +1,9 @@
 import { Section } from "@/components/Section";
-import { skills, certifications } from "@/content/skills";
+import { getResume } from "@/lib/resume";
 import styles from "./Stack.module.css";
 
 export function Stack() {
+  const { skills, certifications } = getResume();
   return (
     <Section id="stack" command="cat stack.txt">
       <dl className={styles.list}>
@@ -24,11 +25,12 @@ export function Stack() {
       <h3 className={styles.subhead}># certifications</h3>
       <ul className={styles.certs}>
         {certifications.map((c) => (
-          <li key={c}>
-            <span className={styles.check} aria-hidden="true">
-              ✓
+          <li key={c.name} className={c.done ? styles.done : styles.progress}>
+            <span className={styles.marker} aria-hidden="true">
+              {c.done ? "✓" : "◷"}
             </span>
-            {c}
+            {c.name}
+            {c.done ? null : <span className={styles.progressLabel}>— in progress</span>}
           </li>
         ))}
       </ul>

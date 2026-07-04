@@ -40,9 +40,19 @@
   display: grid;
   gap: 0.5rem;
 }
-.check {
-  color: var(--accent);
+.marker {
   margin-right: 0.6rem;
+}
+.done .marker {
+  color: var(--accent);
+}
+.progress .marker {
+  color: var(--accent-2);
+}
+.progressLabel {
+  margin-left: 0.5rem;
+  color: var(--accent-2);
+  font-size: 0.8rem;
 }
 
 @media (max-width: 640px) {

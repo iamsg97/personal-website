@@ -27,7 +27,12 @@ There is no test suite. Verification is done by building and driving the running
 
 **Single-page composition.** `app/page.tsx` stacks section components from `components/sections/` (`Hero`, `About`, `Experience`, `Projects`, `Stack`, `Uses`, `Contact`). Every section except `Hero` is wrapped by `components/Section.tsx`, which renders a terminal-style prompt heading (`suvadeep@web:~ $ <command>`) and frames the body. **`lib/sections.ts` is the source of truth** for section `id`, nav `label`, and heading `command` — the `Nav` scroll-spy, keyboard nav, and each section's heading all read from it, so add/reorder sections there.
 
-**Content is data, not markup.** All copy lives in typed modules under `content/` (`profile.ts`, `experience.ts`, `projects.ts`, `skills.ts`, `uses.ts`). Components are presentational and map over these. Edit content in `content/`, not in components.
+**Content is data, not markup.**
+
+- **`content/resume.mdx`** is the growing source of truth for the **Experience, Projects, Stack, and Certifications** sections — YAML frontmatter, parsed and Zod-validated once by `lib/resume.ts` (`getResume()`), which is what those sections import. Adding a project/skill/cert = editing that frontmatter. Certifications are `{ name, done }`: `done: true` → green ✓, `done: false` → amber "in progress" clock (◷). Because the home page is ISR, `next.config.ts` uses `outputFileTracingIncludes` to bundle the MDX with the route.
+- `content/profile.ts` holds identity/hero/about/socials plus `aspirations` (exported separately). Aspirations are arrays of parts (`AspirationPart` = string | link) so they can embed inline links — e.g. an internal `#git-remote` anchor (scrolls to the live-repos subsection) and external links. `content/uses.ts` holds the dotfiles data.
+
+Components are presentational and map over these. Edit content in `content/`, not in components.
 
 **Theming.** Dark/light is driven by `data-theme` on `<html>`. An inline script in `app/layout.tsx` sets it **before first paint** (reads `localStorage.theme`, falls back to `prefers-color-scheme`) to avoid a flash. `ThemeToggle` uses **`useSyncExternalStore`** (not `useState`+effect — the ESLint config forbids `setState` in effects) reading `document.documentElement.dataset.theme`, and dispatches a `themechange` event so the store updates. All colors are CSS variables defined once in `app/globals.css` under `:root` (dark) and `:root[data-theme="light"]`.
 

@@ -1,4 +1,4 @@
-import type { Project } from "@/content/projects";
+import type { Project } from "@/lib/resume";
 import styles from "./ProjectCard.module.css";
 
 export function ProjectCard({ project }: { project: Project }) {
