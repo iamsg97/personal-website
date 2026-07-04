@@ -54,7 +54,9 @@ jobs:
           # ECR is immutable-tag (see terraform/ecr.tf), so we only ever push
           # this build's unique version tag -- no floating "latest" that a
           # second push would collide with.
-          docker build -t "$REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" .
+          docker build \
+            --build-arg NEXT_PUBLIC_SITE_URL="${{ vars.SITE_URL }}" \
+            -t "$REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" .
           docker push "$REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
       - name: Download current task definition

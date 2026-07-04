@@ -24,11 +24,19 @@ GitHub Actions (CD) --push image--> ECR
 - **DNS**: `suvadeepghoshal.dev` is registered and managed at **Spaceship**,
   not Route 53 — the ACM validation and the final ALB-pointing records were
   added there manually (Terraform can't touch DNS it doesn't host).
+  `www.suvadeepghoshal.dev` is the canonical URL (`CNAME` to the ALB); the
+  apex domain has no DNS record pointing at AWS at all — it 301-redirects to
+  `www` via Spaceship's own URL-forwarding feature, entirely outside this
+  Terraform stack.
 - **ECR**: private repository for the built image.
 - **GitHub Actions deploys via OIDC** — no long-lived AWS access keys are
   stored anywhere.
 - **Secrets**: `RESEND_API_KEY` is read from SSM Parameter Store (SecureString)
   at container start, not baked into the task definition.
+- **`NEXT_PUBLIC_SITE_URL`**: Next.js inlines `NEXT_PUBLIC_*` vars at _build_
+  time, so this is passed as a Docker `--build-arg` in the CD workflow (from
+  the `SITE_URL` repo variable), not as an ECS runtime environment variable —
+  setting it on the running task would silently do nothing.
 
 ## Cost
 
@@ -141,10 +149,12 @@ Merge to `main` (or run manually):
 gh workflow run cd.yml
 ```
 
-This builds the Docker image, pushes it to ECR tagged with
-`scripts/version.sh build`'s output (e.g. `1.0.0-build.42.a1b2c3d`) and
-`latest`, registers a new ECS task definition revision pointing at that image,
-and updates the service. The action waits for the deployment to stabilize.
+This builds the Docker image (passing `SITE_URL` as the `NEXT_PUBLIC_SITE_URL`
+build-arg — see the note above), pushes it to ECR tagged with
+`scripts/version.sh build`'s output (e.g. `1.0.0-build.42.a1b2c3d` — ECR is
+immutable-tag, so there's no floating `latest`), registers a new ECS task
+definition revision pointing at that image, and updates the service. The
+action waits for the deployment to stabilize.
 
 ### 6. Point the domain at the ALB and issue the certificate
 
@@ -164,19 +174,23 @@ create DNS records automatically since the domain isn't hosted in Route 53.
    (`terraform/alb.tf`) that references it.
 4. Add the final DNS records pointing the real domain at the ALB
    (`terraform output alb_dns_name`):
-   - `www` → `CNAME` to the ALB hostname (works everywhere).
+   - `www` → `CNAME` to the ALB hostname (works everywhere). This is the
+     canonical URL.
    - Apex (`@`) → most registrars don't allow a `CNAME` at the root. Use an
      `ALIAS`/`ANAME` record if your provider supports one; otherwise use its
-     domain-forwarding feature to redirect the apex to `https://www.<domain>`.
+     domain-forwarding feature to redirect the apex to `https://www.<domain>`
+     (this is what's configured for `suvadeepghoshal.dev` at Spaceship — a
+     301 redirect, not a DNS record, since Spaceship doesn't offer `ALIAS`).
 
 ### 7. Verify
 
 ```bash
-curl -I "https://suvadeepghoshal.dev"
+curl -I "https://www.suvadeepghoshal.dev"
 ```
 
-You should get a `200` over HTTPS, and `http://` should 301-redirect to
-`https://`. If not, see [Troubleshooting](#troubleshooting).
+You should get a `200` over HTTPS, and both `http://www...` and the apex
+`suvadeepghoshal.dev` should redirect to it. If not, see
+[Troubleshooting](#troubleshooting).
 
 ## Ongoing deploys
 

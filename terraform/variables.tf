@@ -52,12 +52,6 @@ variable "domain_name" {
   default     = "suvadeepghoshal.dev"
 }
 
-variable "next_public_site_url" {
-  description = "Canonical site URL baked into the running container's environment."
-  type        = string
-  default     = "https://suvadeepghoshal.dev"
-}
-
 variable "contact_to_email" {
   description = "Address contact-form submissions are delivered to."
   type        = string
