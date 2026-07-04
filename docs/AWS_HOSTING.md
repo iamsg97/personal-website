@@ -28,7 +28,7 @@ GitHub Actions (CD) --push image--> ECR
 
 ## Cost
 
-Roughly (`us-east-1`, on-demand pricing):
+Roughly (`ap-south-1`, on-demand pricing):
 
 | Resource                  | ~Monthly cost                                         |
 | ------------------------- | ----------------------------------------------------- |
@@ -111,7 +111,7 @@ Set repo **variables** (`gh variable set`, not secrets — these aren't
 sensitive):
 
 ```bash
-gh variable set AWS_REGION --body "us-east-1"
+gh variable set AWS_REGION --body "ap-south-1"
 gh variable set ECR_REPOSITORY --body "suvadeep-portfolio"
 gh variable set ECS_CLUSTER --body "suvadeep-portfolio"
 gh variable set ECS_SERVICE --body "suvadeep-portfolio"
@@ -133,7 +133,7 @@ gh workflow run cd.yml
 ```
 
 This builds the Docker image, pushes it to ECR tagged with
-`scripts/version.sh build`'s output (e.g. `1.0.0+build.42.a1b2c3d`) and
+`scripts/version.sh build`'s output (e.g. `1.0.0-build.42.a1b2c3d`) and
 `latest`, registers a new ECS task definition revision pointing at that image,
 and updates the service. The action waits for the deployment to stabilize.
 
