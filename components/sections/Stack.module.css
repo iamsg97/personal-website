@@ -1,0 +1,63 @@
+.list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  gap: 0.5rem 1rem;
+  align-items: baseline;
+}
+
+.key {
+  color: var(--accent);
+  font-weight: 700;
+}
+.key::after {
+  content: " =";
+  color: var(--fg-muted);
+  font-weight: 400;
+}
+
+.val {
+  color: var(--fg);
+  max-width: var(--measure);
+}
+.sep {
+  color: var(--fg-faint);
+}
+
+.subhead {
+  margin-top: 2rem;
+  margin-bottom: 0.85rem;
+  color: var(--fg-muted);
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.certs {
+  display: grid;
+  gap: 0.5rem;
+}
+.marker {
+  margin-right: 0.6rem;
+}
+.done .marker {
+  color: var(--accent);
+}
+.progress .marker {
+  color: var(--accent-2);
+}
+.progressLabel {
+  margin-left: 0.5rem;
+  color: var(--accent-2);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 640px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+}

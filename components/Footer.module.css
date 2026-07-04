@@ -1,0 +1,33 @@
+.footer {
+  margin-top: auto;
+  border-top: 1px dashed var(--border);
+  padding-block: 2rem;
+  font-size: 0.85rem;
+  color: var(--fg-muted);
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.line {
+  max-width: none;
+}
+
+.comment {
+  color: var(--fg-faint);
+}
+
+.socials {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.meta {
+  margin-top: 1rem;
+  max-width: none;
+}

@@ -1,0 +1,22 @@
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--fg-muted);
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.55rem;
+  cursor: pointer;
+}
+
+.toggle:hover {
+  color: var(--fg);
+  border-color: var(--accent);
+}
+
+.label {
+  min-width: 3ch;
+  text-align: left;
+}

@@ -1,0 +1,25 @@
+.intro {
+  margin-bottom: 1.25rem;
+  max-width: none;
+}
+.comment {
+  color: var(--fg-faint);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.subhead {
+  margin-top: 2.25rem;
+  margin-bottom: 1rem;
+  color: var(--fg-muted);
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.loading {
+  color: var(--fg-muted);
+}

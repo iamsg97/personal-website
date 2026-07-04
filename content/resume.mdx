@@ -1,0 +1,90 @@
+---
+# ---------------------------------------------------------------------------
+# resume.mdx — the single source of truth for the Experience, Projects, Stack,
+# and Certifications sections. Edit the frontmatter below; the site updates.
+#
+# certifications: set `done: true` for an earned cert (renders a green ✓) or
+# `done: false` for one you're working towards (renders a yellow "in progress"
+# clock). Think of each as a checkbox — [x] done, [ ] in progress.
+# ---------------------------------------------------------------------------
+
+experience:
+  - company: "LTIMindtree"
+    role: "Senior Software Engineer"
+    period: "Mar 2021 — Present"
+    location: "Bangalore · Bracknell (UK) · Kolkata"
+    note: "Tier-1 IT services MNC"
+    highlights:
+      - "Shipped React/Next.js + Node.js platforms serving 50,000+ daily users across UK and India deployments; owned delivery end-to-end from scoping to production rollout."
+      - "Re-engineered REST APIs on Express.js and NestJS, cutting average API response time by 60% and removing peak-hour timeouts without added infrastructure cost."
+      - "Led an AngularJS → Next.js migration for a customer-facing portal, lifting UI performance by 35% and enabling SSR for faster first-load and SEO gains."
+      - "Built and shipped two fraud-prevention products (OCR card + biometric flows), cutting fraudulent transactions by 75–85% and protecting customer payments at scale."
+      - "Designed event-driven backends on AWS SQS/SNS using SOLID and clean-architecture patterns, decoupling downstream services and improving fault isolation."
+      - "Mentored 10 junior engineers; ran Agile ceremonies and stakeholder alignment across UK onsite and India offshore teams."
+      - "Hardened CI/CD on Bitbucket Pipelines + Jenkins with Jest/Vitest gates for safer releases."
+
+projects:
+  - name: "OCR Payment Verification"
+    subtitle: "“Trust the Card”"
+    role: "Lead Dev · India"
+    year: "2025"
+    stack: ["NestJS", "OAuth 2.0", "OIDC"]
+    blurb: "Led OCR-based card verification with OAuth 2.0 / OIDC, reducing fraudulent transactions by 85% in production. Owned API contracts, the threat model, and end-to-end QA."
+  - name: "Vehicle Exchange Platform"
+    role: "Full-Stack Engineer · UK"
+    year: "2024"
+    stack: ["MERN", "AWS S3", "JWT"]
+    blurb: "Delivered a contactless license-plate-scan exchange flow with JWT auth and S3 storage, replacing manual paperwork at pilot sites; tuned the Webpack/Babel build to shrink bundle size."
+  - name: "Biometric Verification System"
+    subtitle: "“Trust the Customer”"
+    role: "Lead Dev · UK"
+    year: "2023"
+    stack: ["MERN", "OAuth 2.0", "OIDC"]
+    blurb: "Launched MERN-based biometric login with OAuth 2.0 / OIDC, cutting account-takeover fraud by 75% within the first release window."
+  - name: "Express Exit Pass System"
+    role: "Lead Dev · India"
+    year: "2022"
+    stack: ["Next.js", "Zustand", "NestJS"]
+    blurb: "Built a QR-code self-service rental-return flow that removed the front-desk handoff and lifted customer satisfaction across pilot locations."
+  - name: "Contactless PreCheck"
+    role: "Developer · India"
+    year: "2021"
+    stack: ["React", "Spring Boot", "JWT"]
+    blurb: "Shipped a contactless check-in flow on React + Spring Boot with JWT auth that cut counter wait time by 76%."
+
+skills:
+  - label: "Languages"
+    items: ["TypeScript", "JavaScript (ES6+)", "Java", "HTML5", "CSS3", "SQL"]
+  - label: "Frontend"
+    items: ["React.js", "Next.js", "Redux", "Zustand", "React Query", "AEM", "Webpack", "Babel"]
+  - label: "Backend"
+    items:
+      ["Node.js", "Express.js", "NestJS", "Spring Boot", "REST", "Microservices", "Event-Driven"]
+  - label: "Databases"
+    items: ["MongoDB", "PostgreSQL", "Prisma ORM"]
+  - label: "Cloud & DevOps"
+    items: ["AWS (EC2, S3, SQS/SNS, SSM)", "Docker", "Kubernetes", "Jenkins", "Bitbucket Pipelines"]
+  - label: "AI / Agentic"
+    items:
+      ["MCP", "LangChain", "LangGraph", "AWS Kiro (spec-driven)", "Custom agents", "Context tuning"]
+  - label: "Testing & Quality"
+    items: ["Jest", "Vitest", "Mocha", "Cypress", "TDD", "Code Review"]
+  - label: "Security & Practices"
+    items:
+      ["OAuth 2.0", "OpenID Connect", "JWT", "RBAC", "SOLID", "Clean Architecture", "Agile/Scrum"]
+
+certifications:
+  - name: "AWS Certified Developer – Associate (DVA-C02)"
+    done: false
+  - name: "Claude AI Fluency: Framework & Foundations — Anthropic"
+    done: true
+  - name: "Claude 101 — Anthropic"
+    done: true
+---
+
+# Résumé source
+
+This file is the source of truth for my **experience**, **projects**, **tech
+stack**, and **certifications**. To update the site, edit the frontmatter above —
+add a project under `projects`, a group under `skills`, or a line under
+`certifications` (`done: true` = earned, `done: false` = in progress).

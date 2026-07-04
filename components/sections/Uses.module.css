@@ -1,0 +1,43 @@
+.intro {
+  margin-bottom: 1.5rem;
+  color: var(--fg);
+}
+
+.list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 0.5rem 1rem;
+  align-items: baseline;
+}
+
+.key {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.val {
+  color: var(--fg);
+  max-width: var(--measure);
+}
+
+.repo {
+  margin-top: 1.75rem;
+  color: var(--fg-muted);
+  max-width: none;
+}
+.dollar {
+  color: var(--accent);
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+}
