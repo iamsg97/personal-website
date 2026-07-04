@@ -24,6 +24,9 @@ jobs:
   deploy:
     name: Build, push, and deploy
     runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ vars.SITE_URL }}
     steps:
       - uses: actions/checkout@v4
         with:

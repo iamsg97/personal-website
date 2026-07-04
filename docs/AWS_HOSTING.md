@@ -115,7 +115,12 @@ gh variable set AWS_REGION --body "ap-south-1"
 gh variable set ECR_REPOSITORY --body "suvadeep-portfolio"
 gh variable set ECS_CLUSTER --body "suvadeep-portfolio"
 gh variable set ECS_SERVICE --body "suvadeep-portfolio"
+gh variable set SITE_URL --body "$(terraform output -raw alb_dns_name)"
 ```
+
+`SITE_URL` isn't read by any deploy logic — it's only used to link the repo's
+**Environments** tab (Settings → Environments → `production`) to the live
+site. Update it if you attach a custom domain later.
 
 Set the one repo **secret** the CD workflow needs — the OIDC role ARN (not a
 credential, but keeping it out of the diff/PR history is good hygiene):
@@ -149,7 +154,14 @@ You should get a `200`. If not, see [Troubleshooting](#troubleshooting).
 ## Ongoing deploys
 
 Every push to `main` (after a PR passes CI and is merged) triggers `cd.yml`
-automatically — no manual steps needed after the first-time setup above.
+automatically — no manual steps needed after the first-time setup above. Each
+run shows up under the repo's **Environments** tab (job-level `environment:
+production`), linking back to `SITE_URL`.
+
+Pushing a version tag (`./scripts/version.sh major|minor|patch` followed by
+`git push --follow-tags`) triggers `.github/workflows/release.yml`, which
+creates a GitHub Release with auto-generated notes from the commits since the
+previous tag.
 
 ## Adding a custom domain (later)
 
