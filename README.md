@@ -34,6 +34,8 @@ back to a `mailto:` link and the GitHub section uses the unauthenticated API.
 | `npm run lint`         | ESLint                                |
 | `npm run format`       | Prettier write                        |
 | `npm run format:check` | Prettier check                        |
+| `./scripts/version.sh <major\|minor\|patch>` | Bump the release version, commit, and tag |
+| `./scripts/version.sh build`                 | Print a build-metadata version for the current commit (used by CD) |
 
 ## Environment
 
@@ -57,8 +59,22 @@ Content lives under [`content/`](./content) — edit those, not the components:
 - `uses.ts` — the dotfiles / terminal setup
 - `lib/sections.ts` — section order + terminal-style headings
 
+## CI/CD
+
+- **CI** (`.github/workflows/ci.yml`): every PR into `main` runs format check,
+  lint, `next build`, and a Docker image build. All must pass before merge —
+  enforced by branch protection on `main`.
+- **CD** (`.github/workflows/cd.yml`): every push to `main` builds the Docker
+  image, pushes it to ECR, and rolls out a new ECS task revision.
+
 ## Deploy
 
-Deploys to Vercel as-is. Set the environment variables above in the project
-settings; the home page is statically generated with hourly revalidation and the
-contact form runs as a single serverless function.
+The production target is **AWS (ECS on EC2)** — see
+[`docs/AWS_HOSTING.md`](./docs/AWS_HOSTING.md) for the full runbook
+(architecture, first-time setup, cost, troubleshooting, teardown). The
+infrastructure is defined in [`terraform/`](./terraform).
+
+The app also runs unmodified on Vercel if you'd rather not manage the AWS
+side: set the environment variables above in the project settings; the home
+page is statically generated with hourly revalidation and the contact form
+runs as a single serverless function.
