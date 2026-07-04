@@ -26,15 +26,15 @@ back to a `mailto:` link and the GitHub section uses the unauthenticated API.
 
 ## Scripts
 
-| Command                | What it does                          |
-| ---------------------- | ------------------------------------- |
-| `npm run dev`          | Start the dev server on :3000         |
-| `npm run build`        | Production build (typecheck + static) |
-| `npm start`            | Serve the production build            |
-| `npm run lint`         | ESLint                                |
-| `npm run format`       | Prettier write                        |
-| `npm run format:check` | Prettier check                        |
-| `./scripts/version.sh <major\|minor\|patch>` | Bump the release version, commit, and tag |
+| Command                                      | What it does                                                       |
+| -------------------------------------------- | ------------------------------------------------------------------ |
+| `npm run dev`                                | Start the dev server on :3000                                      |
+| `npm run build`                              | Production build (typecheck + static)                              |
+| `npm start`                                  | Serve the production build                                         |
+| `npm run lint`                               | ESLint                                                             |
+| `npm run format`                             | Prettier write                                                     |
+| `npm run format:check`                       | Prettier check                                                     |
+| `./scripts/version.sh <major\|minor\|patch>` | Bump the release version, commit, and tag                          |
 | `./scripts/version.sh build`                 | Print a build-metadata version for the current commit (used by CD) |
 
 ## Environment

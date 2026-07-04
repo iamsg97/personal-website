@@ -30,12 +30,12 @@ GitHub Actions (CD) --push image--> ECR
 
 Roughly (`us-east-1`, on-demand pricing):
 
-| Resource | ~Monthly cost |
-| --- | --- |
-| EC2 `t3.micro` | ~$7.50 (free tier: $0 for 12 months on a new account) |
-| Application Load Balancer | ~$16 + a few cents/GB processed |
-| ECR storage | ~$0.10/GB |
-| CloudWatch Logs | pennies at this volume |
+| Resource                  | ~Monthly cost                                         |
+| ------------------------- | ----------------------------------------------------- |
+| EC2 `t3.micro`            | ~$7.50 (free tier: $0 for 12 months on a new account) |
+| Application Load Balancer | ~$16 + a few cents/GB processed                       |
+| ECR storage               | ~$0.10/GB                                             |
+| CloudWatch Logs           | pennies at this volume                                |
 
 The ALB is the dominant cost for a low-traffic personal site. If that matters,
 the documented alternative is to skip the ALB and point DNS straight at the
@@ -96,7 +96,7 @@ aws ssm put-parameter \
   --overwrite
 ```
 
-The running task picks this up on its *next* start (redeploy or let the CD
+The running task picks this up on its _next_ start (redeploy or let the CD
 pipeline roll one out).
 
 ### 4. Wire up GitHub Actions
