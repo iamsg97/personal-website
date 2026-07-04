@@ -46,6 +46,12 @@ variable "container_memory" {
   default     = 400
 }
 
+variable "domain_name" {
+  description = "Custom domain the site is served on (DNS managed externally at Spaceship, not Route 53)."
+  type        = string
+  default     = "suvadeepghoshal.dev"
+}
+
 variable "next_public_site_url" {
   description = "Canonical site URL baked into the running container's environment."
   type        = string

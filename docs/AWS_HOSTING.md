@@ -12,14 +12,18 @@ GitHub Actions (CD) --push image--> ECR
                     --deploy------->  ECS Service ---> ECS Task (EC2, bridge network)
                                             |
                                             v
-                                     ALB (HTTP :80) <--- internet
+                        suvadeepghoshal.dev -> ALB (HTTPS :443, HTTP :80 redirects) <--- internet
 ```
 
 - **VPC**: a dedicated VPC with 2 public subnets (no NAT gateway — keeps cost down).
 - **ECS cluster**: EC2 launch type, one `t3.micro` instance in an Auto Scaling
   Group (min=max=desired=1), managed by an ECS capacity provider.
-- **ALB**: internet-facing, HTTP only for v1 (no domain yet — see
-  [Adding a custom domain](#adding-a-custom-domain-later)).
+- **ALB**: internet-facing. HTTPS on 443 (ACM cert for `suvadeepghoshal.dev` +
+  `www.suvadeepghoshal.dev`, `ELBSecurityPolicy-TLS13-1-2-2021-06`); HTTP on 80
+  redirects (301) to HTTPS.
+- **DNS**: `suvadeepghoshal.dev` is registered and managed at **Spaceship**,
+  not Route 53 — the ACM validation and the final ALB-pointing records were
+  added there manually (Terraform can't touch DNS it doesn't host).
 - **ECR**: private repository for the built image.
 - **GitHub Actions deploys via OIDC** — no long-lived AWS access keys are
   stored anywhere.
@@ -115,12 +119,12 @@ gh variable set AWS_REGION --body "ap-south-1"
 gh variable set ECR_REPOSITORY --body "suvadeep-portfolio"
 gh variable set ECS_CLUSTER --body "suvadeep-portfolio"
 gh variable set ECS_SERVICE --body "suvadeep-portfolio"
-gh variable set SITE_URL --body "$(terraform output -raw alb_dns_name)"
+gh variable set SITE_URL --body "$(terraform output -raw site_url)"
 ```
 
 `SITE_URL` isn't read by any deploy logic — it's only used to link the repo's
 **Environments** tab (Settings → Environments → `production`) to the live
-site. Update it if you attach a custom domain later.
+site.
 
 Set the one repo **secret** the CD workflow needs — the OIDC role ARN (not a
 credential, but keeping it out of the diff/PR history is good hygiene):
@@ -142,14 +146,37 @@ This builds the Docker image, pushes it to ECR tagged with
 `latest`, registers a new ECS task definition revision pointing at that image,
 and updates the service. The action waits for the deployment to stabilize.
 
-### 6. Verify
+### 6. Point the domain at the ALB and issue the certificate
+
+`terraform apply` requests an ACM certificate for `var.domain_name` (default
+`suvadeepghoshal.dev`) and its `www` subdomain, but can't validate it or
+create DNS records automatically since the domain isn't hosted in Route 53.
+
+1. `terraform output certificate_validation_records` — add each as a `CNAME`
+   at your DNS provider.
+2. Wait for propagation (`node -e "require('dns').resolveCname('<name>', console.log)"`
+   or any DNS checker), then confirm ACM shows `ISSUED`:
+   ```bash
+   aws acm describe-certificate --certificate-arn <arn> --query Certificate.Status
+   ```
+3. `terraform apply` again — `aws_acm_certificate_validation` (in `terraform/acm.tf`)
+   completes once the CNAMEs are visible, which unblocks the HTTPS listener
+   (`terraform/alb.tf`) that references it.
+4. Add the final DNS records pointing the real domain at the ALB
+   (`terraform output alb_dns_name`):
+   - `www` → `CNAME` to the ALB hostname (works everywhere).
+   - Apex (`@`) → most registrars don't allow a `CNAME` at the root. Use an
+     `ALIAS`/`ANAME` record if your provider supports one; otherwise use its
+     domain-forwarding feature to redirect the apex to `https://www.<domain>`.
+
+### 7. Verify
 
 ```bash
-terraform output alb_dns_name
-curl -I "$(terraform output -raw alb_dns_name)"
+curl -I "https://suvadeepghoshal.dev"
 ```
 
-You should get a `200`. If not, see [Troubleshooting](#troubleshooting).
+You should get a `200` over HTTPS, and `http://` should 301-redirect to
+`https://`. If not, see [Troubleshooting](#troubleshooting).
 
 ## Ongoing deploys
 
@@ -162,20 +189,6 @@ Pushing a version tag (`./scripts/version.sh major|minor|patch` followed by
 `git push --follow-tags`) triggers `.github/workflows/release.yml`, which
 creates a GitHub Release with auto-generated notes from the commits since the
 previous tag.
-
-## Adding a custom domain (later)
-
-1. Buy/point a domain and create a Route 53 hosted zone (or use your existing
-   registrar's DNS).
-2. Request a public ACM certificate for the domain (`aws acm request-certificate`)
-   and validate it (DNS validation, add the CNAME Terraform/ACM gives you).
-3. Add an HTTPS listener (port 443) on the ALB referencing that certificate,
-   and either redirect port 80 -> 443 or drop the HTTP listener.
-4. Point an `A`/`ALIAS` (Route 53) or `CNAME` (elsewhere) record at the ALB's
-   DNS name (`terraform output alb_dns_name`).
-
-This isn't in the Terraform yet since there's no domain configured — ask and
-it can be added as `terraform/dns.tf` + `terraform/acm.tf`.
 
 ## Troubleshooting
 
@@ -191,6 +204,16 @@ it can be added as `terraform/dns.tf` + `terraform/acm.tf`.
   secret matches `terraform output github_actions_deploy_role_arn`, and that
   `github_repository` in `terraform/variables.tf` matches this repo exactly
   (`owner/repo`).
+- **ACM certificate stuck in `PENDING_VALIDATION`**: the CNAME records aren't
+  visible yet — check with `aws acm describe-certificate ... --query
+Certificate.DomainValidationOptions`, and confirm the records resolve via a
+  public resolver (Spaceship's own nameservers can be slower to propagate
+  than the rest of the internet).
+- **Browser shows a certificate mismatch**: you're hitting the ALB's own
+  `*.elb.amazonaws.com` hostname directly — the cert is only valid for
+  `suvadeepghoshal.dev` / `www.suvadeepghoshal.dev`. Always test against the
+  real domain (or `--resolve domain:443:<alb-ip>` if DNS hasn't been switched
+  yet).
 
 ## Tearing it down
 
