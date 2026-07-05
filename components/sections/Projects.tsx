@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { Section } from "@/components/Section";
 import { ProjectCard } from "@/components/ProjectCard";
-import { GithubRepos } from "@/components/GithubRepos";
+import { GithubRepos, RepoSkeleton } from "@/components/GithubRepos";
 import { getResume } from "@/lib/resume";
 import styles from "./Projects.module.css";
 
@@ -23,7 +23,7 @@ export function Projects() {
       <h3 id="git-remote" className={styles.subhead}>
         # git remote — live from github.com/iamsg97
       </h3>
-      <Suspense fallback={<p className={styles.loading}>fetching repos…</p>}>
+      <Suspense fallback={<RepoSkeleton />}>
         <GithubRepos />
       </Suspense>
     </Section>

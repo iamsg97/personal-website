@@ -1,0 +1,37 @@
+.wrap {
+  position: relative;
+}
+
+/*
+ * Default state (no JS, reduced-motion, or content in view at load): the
+ * skeleton is hidden and the real content is fully visible. The wrapper only
+ * departs from this once JS adds data-armed. prefers-reduced-motion is covered
+ * by the global duration clamp in globals.css.
+ */
+.skeleton {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--fg-muted);
+  max-width: none;
+}
+
+/* Armed and awaiting scroll: overlay the skeleton, hold content invisible but
+   still occupying its space so revealing it causes no layout shift. */
+.wrap[data-armed]:not([data-revealed]) .skeleton {
+  display: block;
+}
+.wrap[data-armed] .content {
+  transition:
+    opacity 0.45s ease-out,
+    transform 0.45s ease-out;
+}
+.wrap[data-armed]:not([data-revealed]) .content {
+  opacity: 0;
+  transform: translateY(0.5rem);
+}
+.wrap[data-revealed] .content {
+  opacity: 1;
+  transform: translateY(0);
+}

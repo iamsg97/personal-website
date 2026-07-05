@@ -24,8 +24,11 @@ jobs:
   deploy:
     name: Build, push, and deploy
     runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ vars.SITE_URL }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0 # scripts/version.sh needs full history for the build counter
 
@@ -34,7 +37,7 @@ jobs:
         run: ./scripts/version.sh build
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v5
         with:
           role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
@@ -48,9 +51,13 @@ jobs:
           REGISTRY: ${{ steps.ecr-login.outputs.registry }}
           IMAGE_TAG: ${{ steps.version.outputs.version }}
         run: |
-          docker build -t "$REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" -t "$REGISTRY/$ECR_REPOSITORY:latest" .
+          # ECR is immutable-tag (see terraform/ecr.tf), so we only ever push
+          # this build's unique version tag -- no floating "latest" that a
+          # second push would collide with.
+          docker build \
+            --build-arg NEXT_PUBLIC_SITE_URL="${{ vars.SITE_URL }}" \
+            -t "$REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" .
           docker push "$REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-          docker push "$REGISTRY/$ECR_REPOSITORY:latest"
 
       - name: Download current task definition
         run: |

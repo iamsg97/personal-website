@@ -58,3 +58,40 @@
   color: var(--accent);
   margin-right: 0.5rem;
 }
+
+/* Loading skeleton — ghost cards that mirror the real repo grid. A slow pulse
+   (disabled under reduced-motion by the global clamp) reads like a waiting
+   prompt rather than a shimmer. */
+.fetching {
+  color: var(--fg-muted);
+  margin-bottom: 0.75rem;
+}
+.skel {
+  border: 1px solid var(--border);
+  padding: 0.85rem 1rem;
+}
+.bar {
+  display: block;
+  height: 0.7rem;
+  background: var(--border);
+  animation: skelpulse 1.6s ease-in-out infinite;
+}
+.barName {
+  width: 55%;
+}
+.barDesc {
+  width: 90%;
+  margin-top: 0.75rem;
+  animation-delay: 0.2s;
+}
+.barMeta {
+  width: 35%;
+  height: 0.55rem;
+  margin-top: 0.75rem;
+  animation-delay: 0.4s;
+}
+@keyframes skelpulse {
+  50% {
+    opacity: 0.4;
+  }
+}

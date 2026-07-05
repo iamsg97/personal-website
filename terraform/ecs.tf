@@ -113,10 +113,13 @@ resource "aws_ecs_task_definition" "app" {
         }
       ]
 
+      # NEXT_PUBLIC_SITE_URL is intentionally not set here: Next.js inlines
+      # NEXT_PUBLIC_* vars at build time, so a runtime ECS env var has no
+      # effect. It's passed as a Docker build-arg by the CD workflow instead
+      # (see .github/workflows/cd.yml and Dockerfile).
       environment = [
         { name = "NODE_ENV", value = "production" },
         { name = "PORT", value = tostring(var.container_port) },
-        { name = "NEXT_PUBLIC_SITE_URL", value = var.next_public_site_url },
         { name = "CONTACT_TO_EMAIL", value = var.contact_to_email },
         { name = "CONTACT_FROM_EMAIL", value = var.contact_from_email },
       ]
