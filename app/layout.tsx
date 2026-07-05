@@ -53,6 +53,11 @@ export const metadata: Metadata = {
 // Set the theme before first paint to avoid a flash of the wrong palette.
 const themeScript = `(function(){try{var t=localStorage.getItem('theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.dataset.theme=d?'dark':'light';}catch(e){document.documentElement.dataset.theme='dark';}})();`;
 
+// Gate the Hero boot animation to once per session. Runs before paint: if the
+// session has already booted, mark <html> so the CSS skips the animation;
+// otherwise let it play and record the flag. Failures skip the animation.
+const bootScript = `(function(){try{if(sessionStorage.getItem('booted')){document.documentElement.dataset.booted='1';}else{sessionStorage.setItem('booted','1');}}catch(e){document.documentElement.dataset.booted='1';}})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -62,6 +67,7 @@ export default function RootLayout({
     <html lang="en" className={jetbrainsMono.variable} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>
       <body>
         <a href="#main" className="skip">

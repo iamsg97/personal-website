@@ -89,3 +89,59 @@
   color: var(--accent);
   text-decoration: none;
 }
+
+/*
+ * Boot sequence — plays once per session. The pre-paint bootScript in
+ * app/layout.tsx sets html[data-booted] on subsequent visits, which switches
+ * every rule below off so content shows instantly. prefers-reduced-motion is
+ * handled by the global clamp in globals.css (durations -> ~0), which snaps
+ * every line to its final, fully-visible state.
+ */
+
+/* Print the real terminal lines in, staggered, on a fresh boot. */
+@keyframes bootline {
+  from {
+    opacity: 0;
+    transform: translateY(0.4rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+:global(html:not([data-booted])) .body > * {
+  animation: bootline 0.4s ease-out both;
+}
+:global(html:not([data-booted])) .body > :nth-child(1) {
+  animation-delay: 0s;
+}
+:global(html:not([data-booted])) .body > :nth-child(2) {
+  animation-delay: 0.04s;
+}
+:global(html:not([data-booted])) .body > :nth-child(3) {
+  animation-delay: 0.08s;
+}
+:global(html:not([data-booted])) .body > :nth-child(4) {
+  animation-delay: 0.12s;
+}
+:global(html:not([data-booted])) .body > :nth-child(5) {
+  animation-delay: 0.16s;
+}
+:global(html:not([data-booted])) .body > :nth-child(6) {
+  animation-delay: 0.2s;
+}
+:global(html:not([data-booted])) .body > :nth-child(7) {
+  animation-delay: 0.24s;
+}
+:global(html:not([data-booted])) .body > :nth-child(8) {
+  animation-delay: 0.28s;
+}
+:global(html:not([data-booted])) .body > :nth-child(9) {
+  animation-delay: 0.32s;
+}
+:global(html:not([data-booted])) .body > :nth-child(10) {
+  animation-delay: 0.36s;
+}
+:global(html:not([data-booted])) .body > :nth-child(11) {
+  animation-delay: 0.4s;
+}
