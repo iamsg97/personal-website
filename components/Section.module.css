@@ -1,6 +1,11 @@
 .section {
   padding-block: 3.5rem;
   border-top: 1px dashed var(--border);
+  /* Skip rendering off-screen sections until they scroll near the viewport.
+     Real, SEO-safe lazy *rendering* — content stays in the HTML. The intrinsic
+     size keeps the scrollbar stable before a section has been rendered. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
 }
 
 .heading {

@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Prompt } from "./Prompt";
+import { Reveal } from "./Reveal";
 import styles from "./Section.module.css";
 
 interface SectionProps {
@@ -17,7 +18,9 @@ export function Section({ id, command, path = "~", children }: SectionProps) {
         <h2 id={`${id}-heading`} className={styles.heading}>
           <Prompt path={path} command={command} />
         </h2>
-        <div className={styles.body}>{children}</div>
+        <div className={styles.body}>
+          <Reveal>{children}</Reveal>
+        </div>
       </div>
     </section>
   );
