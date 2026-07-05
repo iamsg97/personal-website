@@ -13,7 +13,8 @@ export function RepoSkeleton() {
   return (
     <div aria-hidden="true">
       <p className={styles.fetching}>
-        fetching repos<span className="cursor" />
+        fetching repos
+        <span className="cursor" />
       </p>
       <ul className={styles.list}>
         {[0, 1, 2].map((i) => (

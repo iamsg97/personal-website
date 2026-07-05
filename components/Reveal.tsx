@@ -52,7 +52,8 @@ export function Reveal({ children }: RevealProps) {
   return (
     <div ref={ref} className={styles.wrap}>
       <p className={styles.skeleton} aria-hidden="true">
-        loading<span className="cursor" />
+        loading
+        <span className="cursor" />
       </p>
       <div className={styles.content}>{children}</div>
     </div>
