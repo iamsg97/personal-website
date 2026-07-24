@@ -66,7 +66,7 @@ export const aspirations: Aspiration[] = [
   {
     parts: [
       { text: "Keep learning in the open ↓", href: "#git-remote" },
-      " — dotfiles, side projects, and whatever I'm hacking on next.",
+      " — side projects, and whatever I'm hacking on next.",
     ],
   },
 ];
