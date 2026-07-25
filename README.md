@@ -56,7 +56,6 @@ Content lives under [`content/`](./content) — edit those, not the components:
   group / cert here and the site updates. Certifications use `done: true`
   (earned → green ✓) or `done: false` (in progress → yellow clock).
 - `profile.ts` — name, tagline, about, aspirations (with inline links), socials
-- `uses.ts` — the dotfiles / terminal setup
 - `lib/sections.ts` — section order + terminal-style headings
 
 ## CI/CD

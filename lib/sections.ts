@@ -9,6 +9,5 @@ export const sections: SectionMeta[] = [
   { id: "experience", label: "experience", command: "cat experience.log" },
   { id: "projects", label: "projects", command: "ls -la projects/" },
   { id: "stack", label: "stack", command: "cat stack.txt" },
-  { id: "uses", label: "uses", command: "cat ~/.dotfiles" },
   { id: "contact", label: "contact", command: "./contact.sh" },
 ];
