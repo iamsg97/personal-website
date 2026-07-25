@@ -82,17 +82,11 @@ jobs:
           service: ${{ env.ECS_SERVICE }}
           wait-for-service-stability: true
 
-      - name: Tag production release
-        # Pushing a v*.*.* tag triggers .github/workflows/release.yml, which
-        # publishes it as a GitHub Release. Idempotent so re-runs of the same
-        # workflow run (same build version) don't fail on an existing tag.
-        run: |
-          tag="v${{ steps.version.outputs.version }}"
-          if git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null 2>&1; then
-            echo "Tag $tag already exists, skipping."
-          else
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git tag -a "$tag" -m "Production deploy $tag"
-            git push origin "$tag"
-          fi
+      - name: Create GitHub Release
+        # Creating the release directly (rather than pushing a tag for
+        # release.yml to pick up) because GITHUB_TOKEN-authored pushes don't
+        # trigger other workflows -- a tag push here would silently no-op.
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          generate_release_notes: true
