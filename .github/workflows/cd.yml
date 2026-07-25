@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: read
+  contents: write # also needed to tag successful deploys for the Release workflow
   id-token: write # required for OIDC -> AWS
 
 env:
@@ -81,3 +81,18 @@ jobs:
           cluster: ${{ env.ECS_CLUSTER }}
           service: ${{ env.ECS_SERVICE }}
           wait-for-service-stability: true
+
+      - name: Tag production release
+        # Pushing a v*.*.* tag triggers .github/workflows/release.yml, which
+        # publishes it as a GitHub Release. Idempotent so re-runs of the same
+        # workflow run (same build version) don't fail on an existing tag.
+        run: |
+          tag="v${{ steps.version.outputs.version }}"
+          if git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null 2>&1; then
+            echo "Tag $tag already exists, skipping."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git tag -a "$tag" -m "Production deploy $tag"
+            git push origin "$tag"
+          fi
